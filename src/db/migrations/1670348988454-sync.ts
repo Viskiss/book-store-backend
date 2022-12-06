@@ -11,7 +11,6 @@ export class sync1670348988454 implements MigrationInterface {
                 "email" character varying NOT NULL,
                 "password" character varying NOT NULL,
                 "dob" character varying NOT NULL,
-                "token" character varying NOT NULL,
                 CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id")
             )
         `);

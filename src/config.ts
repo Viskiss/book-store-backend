@@ -20,6 +20,8 @@ const config = {
     logging: Boolean(mainConfig.POSTGRES_DB_LOGGING),
   },
   port: mainConfig.SERVER_PORT,
+  jwtSecret: mainConfig.TOKEN_SECRET,
+  passwordSalt: mainConfig.PASSWORD_HASH_SALT,
 };
 
 export default config;

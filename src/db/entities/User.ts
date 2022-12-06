@@ -11,14 +11,11 @@ export class User {
   @Column({ type: 'varchar' })
   email: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', select: false })
   password: string;
 
   @Column({ type: 'varchar' })
   dob: string;
-
-  @Column({ type: 'varchar' })
-  token: string;
 }
 
 export default User;

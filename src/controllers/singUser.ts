@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dataSource from '../db/dataSource';
 import User from '../db/entities/User';
+import config from '../config';
 
 const singUp: Handler = async (req, res) => {
   try {
@@ -17,15 +18,14 @@ const singUp: Handler = async (req, res) => {
       throw Error('All is required');
     }
     const userRepository = dataSource.getRepository(User);
-    const Token = jwt.sign(req.body.email, process.env.TOKEN_SECRET);
+    const token = jwt.sign({ id: req.body.id }, config.jwtSecret);
     const user = new User();
     user.fullName = req.body.fullName;
     user.email = req.body.email;
-    user.password = await bcrypt.hash(req.body.password, 10);
+    user.password = await bcrypt.hash(req.body.password, config.passwordSalt);
     user.dob = req.body.dob;
-    user.token = Token;
     await userRepository.save(user);
-    res.json(user);
+    res.json({ user, token });
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -34,8 +34,11 @@ const singUp: Handler = async (req, res) => {
 const singIn: Handler = async (req, res) => {
   try {
     const userRepository = dataSource.getRepository(User);
-    const existingUser = await userRepository.findOneBy({
-      email: req.params.email,
+    const existingUser = await userRepository.findOne({
+      select: ['dob', 'email', 'fullName', 'id', 'password'],
+      where: {
+        email: req.params.email,
+      },
     });
     if (!existingUser) {
       return res.status(404).json({ message: 'Unable find user' });
@@ -45,9 +48,19 @@ const singIn: Handler = async (req, res) => {
     if (!matchPassword) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
-    const Token = jwt.sign(existingUser.email, process.env.TOKEN_SECRET);
 
-    res.status(201).json({ user: existingUser, token: Token });
+    const token = jwt.sign({
+      id: existingUser.id,
+    }, config.jwtSecret);
+
+    const userData: Omit<User, 'password'> = {
+      dob: existingUser.dob,
+      email: existingUser.email,
+      fullName: existingUser.fullName,
+      id: existingUser.id,
+    };
+
+    res.status(201).json({ user: userData, token });
   } catch (error) {
     res.status(500).send(error.message);
   }
