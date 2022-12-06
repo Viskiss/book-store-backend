@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class sync1670320867860 implements MigrationInterface {
-    name = 'sync1670320867860'
+export class sync1670348988454 implements MigrationInterface {
+    name = 'sync1670348988454'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
@@ -10,7 +10,8 @@ export class sync1670320867860 implements MigrationInterface {
                 "fullName" character varying NOT NULL,
                 "email" character varying NOT NULL,
                 "password" character varying NOT NULL,
-                "dob" date NOT NULL,
+                "dob" character varying NOT NULL,
+                "token" character varying NOT NULL,
                 CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id")
             )
         `);
