@@ -15,7 +15,7 @@ app.use(
 
 app.use(express.json());
 
-app.use('/users', routes);
+app.use('/api', routes);
 
 app.use('*', (_req, res) => {
   res.sendStatus(404);
@@ -25,9 +25,9 @@ app.use('*', (_req, res) => {
   try {
     await connectDB();
 
-    app.listen(config.postgresDb.port, () => {
+    app.listen(config.port, () => {
       // eslint-disable-next-line no-console
-      console.log(`Application listening on port ${config.postgresDb.port}!`);
+      console.log(`Application listening on port ${config.port}!`);
     });
   } catch (err) {
     console.error('Server start failed with: ', err);

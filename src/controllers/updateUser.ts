@@ -1,19 +1,17 @@
-import express from 'express';
+import type { Handler } from 'express';
 import dataSource from '../db/dataSource';
 import User from '../db/entities/User';
 
-const router = express.Router();
-
-router.patch('/:id', async (req, res) => {
+const updateUser: Handler = async (req, res) => {
   try {
-    if (!req.body.title) {
+    if (!req.body.fullName) {
       throw Error('Do you want to deceive me? Something is missing.');
     }
     const userRepository = dataSource.getRepository(User);
     const userToUpdate = await userRepository.findOneBy({
       id: req.params.id,
     });
-    userToUpdate.email = '';
+    userToUpdate.fullName = req.body.fullName;
     await userRepository.save(userToUpdate);
 
     if (!userToUpdate) {
@@ -24,6 +22,6 @@ router.patch('/:id', async (req, res) => {
   } catch (error) {
     res.status(500).send(error.message);
   }
-});
+};
 
-export default router;
+export default updateUser;

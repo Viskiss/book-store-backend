@@ -1,10 +1,8 @@
-import express from 'express';
+import type { Handler } from 'express';
 import dataSource from '../db/dataSource';
 import User from '../db/entities/User';
 
-const router = express.Router();
-
-router.get('/', async (req, res) => {
+const getUser: Handler = async (req, res) => {
   try {
     const userRepository = dataSource.getRepository(User);
     const allUsers = await userRepository.find();
@@ -12,6 +10,6 @@ router.get('/', async (req, res) => {
   } catch (error) {
     res.status(500).send(error.message);
   }
-});
+};
 
-export default router;
+export default getUser;

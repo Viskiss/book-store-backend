@@ -5,17 +5,20 @@ export class User {
   @PrimaryGeneratedColumn()
   id: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   fullName: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   email: string;
 
-  @Column()
-  password: number;
+  @Column({ type: 'varchar' })
+  password: string;
 
-  @Column()
-  dob: number;
+  @Column({ type: 'varchar' })
+  dob: string;
+
+  @Column({ type: 'varchar' })
+  token: string;
 }
 
 export default User;

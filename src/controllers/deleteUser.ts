@@ -1,10 +1,8 @@
-import express from 'express';
+import type { Handler } from 'express';
 import dataSource from '../db/dataSource';
 import User from '../db/entities/User';
 
-const router = express.Router();
-
-router.delete('/:id', async (req, res) => {
+const deleteUser: Handler = async (req, res) => {
   try {
     if (!req.params.id) {
       throw Error('How to delete todo without id?');
@@ -23,6 +21,6 @@ router.delete('/:id', async (req, res) => {
   } catch (error) {
     res.status(500).send(error.message);
   }
-});
+};
 
-export default router;
+export default deleteUser;
