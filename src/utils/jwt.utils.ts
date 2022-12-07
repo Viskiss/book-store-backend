@@ -1,14 +1,21 @@
 import jwt from 'jsonwebtoken';
+import config from '../config';
 
-const getTokens = (email: string) => ({
-  accessToken: jwt.sign({ email }, process.env.TOKEN_SECRET, {
+const getTokens = (id: string) => ({
+  accessToken: jwt.sign({ id }, config.jwtSecret, {
     expiresIn: '30m',
-  }),
-  refreshToken: jwt.sign({ email }, process.env.TOKEN_SECRET, {
-    expiresIn: '30d',
   }),
 });
 
+function parseJwt(token: string) {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
+    return `%${(`00${c.charCodeAt(0).toString(16)}`).slice(-2)}`;
+  }).join(''));
+  return JSON.parse(jsonPayload);
+}
+
 export default {
-  getTokens,
+  getTokens, parseJwt,
 };

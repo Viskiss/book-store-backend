@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import dotenv from 'dotenv';
 import fs from 'fs';
 
@@ -21,7 +20,7 @@ const config = {
   },
   port: mainConfig.SERVER_PORT,
   jwtSecret: mainConfig.TOKEN_SECRET,
-  passwordSalt: mainConfig.PASSWORD_HASH_SALT,
+  passwordSalt: mainConfig.PASSWORD_HASH_SALT_ROUND,
 };
 
 export default config;

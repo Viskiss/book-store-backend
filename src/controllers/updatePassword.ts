@@ -1,35 +1,44 @@
 import type { Handler } from 'express';
+import bcrypt from 'bcrypt';
 
 import dataSource from '../db/dataSource';
 import User from '../db/entities/User';
 import Token from '../utils/jwt.utils';
+import config from '../config';
 
-const updateUser: Handler = async (req, res) => {
+const updatePassword: Handler = async (req, res) => {
   try {
+    if (!req.body.password) {
+      return res.status(404).json({ message: 'Need pass' });
+    }
     const userRepository = dataSource.getRepository(User);
 
-    const userToUpdate = await userRepository.findOneBy({
-      id: req.params.id,
+    const userToUpdate = await userRepository.findOne({
+      select: ['dob', 'email', 'fullName', 'id', 'password'],
+      where: {
+        id: req.body.id,
+      },
     });
 
     const tokenUser = req.header('Authorization')?.replace('Bearer ', '');
     const token = Token.getTokens(req.params.id);
 
+    const matchPassword = await bcrypt.compare(req.body.password, userToUpdate.password);
+
     if (Token.parseJwt(tokenUser).id !== +Token.parseJwt(token.accessToken).id) {
       return res.status(404).json({ message: 'Update only yourself' });
     }
     if (Token.parseJwt(tokenUser).id === +Token.parseJwt(token.accessToken).id) {
-      if (req.body.fullName) {
-        userToUpdate.fullName = req.body.fullName;
-      }
-      if (req.body.email) {
-        userToUpdate.email = req.body.email;
-      }
-      if (req.body.dob) {
-        userToUpdate.dob = req.body.dob;
+      if (!matchPassword) {
+        const password = await bcrypt.hash(req.body.password, +config.passwordSalt);
+        userToUpdate.password = password;
+      } else {
+        return res.status(404).json({ message: 'Need new password' });
       }
     }
+
     userToUpdate.fullName = req.body.fullName;
+
     await userRepository.save(userToUpdate);
 
     if (!userToUpdate) {
@@ -42,4 +51,4 @@ const updateUser: Handler = async (req, res) => {
   }
 };
 
-export default updateUser;
+export default updatePassword;
