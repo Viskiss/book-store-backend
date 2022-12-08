@@ -1,3 +1,6 @@
-import User from '../db/entities/User.js';
+import User from '../db/entities/User';
+import dataSource from '../db/dataSource';
 
-export default { User };
+const repository = dataSource.getRepository(User);
+
+export default { User, repository };

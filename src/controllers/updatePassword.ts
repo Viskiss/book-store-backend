@@ -3,12 +3,13 @@ import bcrypt from 'bcrypt';
 
 import dataSource from '../db/dataSource';
 import User from '../db/entities/User';
-import Token from '../utils/jwt.utils';
+import Token from '../utils/jwt.token';
 import config from '../config';
 
 const updatePassword: Handler = async (req, res) => {
   try {
-    if (!req.body.password) {
+    const password = req.body.password;
+    if (!password) {
       return res.status(404).json({ message: 'Need pass' });
     }
     const userRepository = dataSource.getRepository(User);
@@ -21,17 +22,17 @@ const updatePassword: Handler = async (req, res) => {
     });
 
     const tokenUser = req.header('Authorization')?.replace('Bearer ', '');
-    const token = Token.getTokens(req.params.id);
+    const token = Token.getToken(+req.params.id);
 
-    const matchPassword = await bcrypt.compare(req.body.password, userToUpdate.password);
+    const matchPassword = await bcrypt.compare(password, userToUpdate.password);
 
     if (Token.parseJwt(tokenUser).id !== +Token.parseJwt(token.accessToken).id) {
       return res.status(404).json({ message: 'Update only yourself' });
     }
     if (Token.parseJwt(tokenUser).id === +Token.parseJwt(token.accessToken).id) {
       if (!matchPassword) {
-        const password = await bcrypt.hash(req.body.password, +config.passwordSalt);
-        userToUpdate.password = password;
+        const newPassword = await bcrypt.hash(password, +config.passwordSalt);
+        userToUpdate.password = newPassword;
       } else {
         return res.status(404).json({ message: 'Need new password' });
       }
