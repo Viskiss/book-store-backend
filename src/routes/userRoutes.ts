@@ -1,22 +1,27 @@
 import express from 'express';
+import { findDuble } from '../middlewares/findDuble';
+import { revise } from '../middlewares/revise';
+import singUp from '../controllers/sing-UpUser';
+import singIn from '../controllers/sing-InUser';
 import schemas from '../utils/schemasYup/schemas';
 import auth from '../middlewares/auth';
-import sing from '../controllers/singUser';
-import getUser from '../controllers/getUser';
-// import updateUser from '../controllers/updateUser';
-// import deleteUser from '../controllers/deleteUser';
-// import updatePassword from '../controllers/updatePassword';
-import valid from '../middlewares/validator';
+import getUser from '../controllers/getUsers';
+import deleteUser from '../controllers/deleteUser';
+import getCurrentUser from '../controllers/getCurrentUser';
+import updateUser from '../controllers/updateUser';
+import updatePassword from '../controllers/updatePassword';
 
 const userRouter = express.Router();
 
+userRouter.post('/sing-up', findDuble, revise(schemas.userSchemaUp), singUp);
+userRouter.post('/sing-in', revise(schemas.userSchemaIn), singIn);
+
 userRouter.get('/', auth, getUser);
-userRouter.post('/sing-up', sing.singUp);
-userRouter.post('/sing-in', sing.singIn);
-// userRouter.get('/me', auth, );
-// userRouter.patch('/:userId', auth, valid.validateUpdate(valid.userSchemaUpdate), updateUser);
-// eslint-disable-next-line max-len
-// userRouter.patch('/:userId/password', auth, valid.validatePass(valid.userSchemaPass), updatePassword);
-// userRouter.delete('/:userId', auth, deleteUser);
+userRouter.get('/me', auth, getCurrentUser);
+
+userRouter.delete('/:userId', auth, deleteUser);
+
+userRouter.patch('/:userId', findDuble, revise(schemas.userSchemaUpdate), auth, updateUser);
+userRouter.patch('/:userId/password', auth, revise(schemas.userSchemaPass), updatePassword);
 
 export default userRouter;

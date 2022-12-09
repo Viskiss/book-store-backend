@@ -1,26 +1,11 @@
 import * as yup from 'yup';
 
-type ValuesType = {
-  fullName?: string;
-  password?: string;
-  email?: string;
-  dob?: string | Date;
-};
-
-type ValuesUpdateType = {
-  fullName: string;
-  email: string;
-  dob: string;
-};
-
-type ValuesInType = {
-  password: string;
-  email: string;
-};
-
-type ValuesPassType = {
-  password: string;
-};
+// export interface IUserData {
+//   fullName?: string;
+//   password?: string;
+//   email?: string;
+//   dob?: string | Date;
+// }
 
 const yupValid = {
   fullName: yup.string().min(5, 'The fullName is too short(min 5)'),
@@ -30,31 +15,39 @@ const yupValid = {
   dob: yup.string(),
 };
 
-const userSchemaUp = yup.object<Record<keyof ValuesType, yup.AnySchema>>({
-  fullName: yupValid.fullName,
-  password: yupValid.password,
-  email: yupValid.email,
-  dob: yupValid.dob,
+const userSchemaUp = yup.object({
+  body: yup.object({
+    fullName: yupValid.fullName,
+    password: yupValid.password,
+    email: yupValid.email,
+    dob: yupValid.dob,
+  }),
 });
 
-const userSchemaUpdate = yup.object<Record<keyof ValuesUpdateType, yup.AnySchema>>({
-  fullName: yupValid.fullName,
-  email: yupValid.email,
-  dob: yupValid.dob,
+const userSchemaUpdate = yup.object({
+  body: yup.object({
+    fullName: yupValid.fullName,
+    email: yupValid.email,
+    dob: yupValid.dob,
+  }),
 });
 
-const userSchemaIn = yup.object<Record<keyof ValuesInType, yup.AnySchema>>({
-  password: yupValid.password,
-  email: yupValid.email,
+const userSchemaIn = yup.object({
+  body: yup.object({
+    password: yupValid.password,
+    email: yupValid.email,
+  }),
 });
 
-const userSchemaPass = yup.object<Record<keyof ValuesPassType, yup.AnySchema>>({
-  password: yupValid.password,
+const userSchemaPass = yup.object({
+  body: yup.object({
+    password: yupValid.password,
+  }),
 });
 
 export default {
-  userSchemaUp,
   userSchemaIn,
+  userSchemaUp,
   userSchemaUpdate,
   userSchemaPass,
 };

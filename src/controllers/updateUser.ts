@@ -1,43 +1,32 @@
 import type { Handler } from 'express';
-
-import dataSource from '../db/dataSource';
-import User from '../db/entities/User';
-import Token from '../utils/jwt.token';
+import {
+  ReasonPhrases,
+  StatusCodes,
+} from 'http-status-codes';
+import token from '../utils/jwt.token';
+import userDb from '../db/index';
 
 const updateUser: Handler = async (req, res) => {
   try {
-    const id = +req.params.id;
-    const fullName = req.body.fullName;
+    const { email, fullName, dob } = req.body;
+    const id = +req.params.userId;
 
-    const userRepository = dataSource.getRepository(User);
-    const userToUpdate = await userRepository.findOneBy({ id });
+    const userToUpdate = await userDb.repository.findOneBy({ id });
 
-    const tokenUser = req.header('Authorization')?.replace('Bearer ', '');
-    const token = Token.getToken(+id);
+    if (token.matchJwtId(req.user, id)) {
+      userToUpdate.fullName = fullName || userToUpdate.fullName;
+      userToUpdate.email = email || userToUpdate.email;
+      userToUpdate.dob = dob || userToUpdate.dob;
 
-    if (Token.parseJwt(tokenUser).id !== +Token.parseJwt(token.accessToken).id) {
-      return res.status(404).json({ message: 'Update only yourself' });
+      await userDb.repository.save(userToUpdate);
     }
-    if (Token.parseJwt(tokenUser).id === +Token.parseJwt(token.accessToken).id) {
-      if (fullName) {
-        userToUpdate.fullName = fullName;
-      }
-      if (req.body.email) {
-        userToUpdate.email = req.body.email;
-      }
-      if (req.body.dob) {
-        userToUpdate.dob = req.body.dob;
-      }
-    }
-    await userRepository.save(userToUpdate);
-
     if (!userToUpdate) {
-      return res.status(404).json({ message: 'Unable to update' });
+      return res.status(StatusCodes.NOT_FOUND).json({ message: 'Unable to update' });
     }
 
     res.json(userToUpdate);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(StatusCodes.NOT_IMPLEMENTED).send(ReasonPhrases.NOT_IMPLEMENTED);
   }
 };
 

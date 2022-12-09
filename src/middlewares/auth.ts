@@ -1,12 +1,7 @@
-import jwt, { type JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import type { Handler } from 'express';
 
 import config from '../config';
-// import type User from '../db/entities/User';
-
-// export interface ICustomRequest extends Request {
-//   user: string | JwtPayload;
-// }
 
 const auth: Handler = async (req, res, next) => {
   try {
@@ -16,11 +11,9 @@ const auth: Handler = async (req, res, next) => {
       throw new Error();
     }
 
-    const decoded = jwt.verify(token, config.jwtSecret) as {id: number};
-    // req.user = decoded.id;
+    const decoded = jwt.verify(token, config.verify.jwtSecret) as {id: number};
+    req.user = decoded.id;
     next();
-    // eslint-disable-next-line no-console
-    console.log(decoded.id);
   } catch (error) {
     res.status(401).send('Unahtorized');
   }

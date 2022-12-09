@@ -6,9 +6,9 @@ import app from './app';
   try {
     await connectDB();
 
-    app.listen(config.port, () => {
+    app.listen(config.source.port, () => {
       // eslint-disable-next-line no-console
-      console.log(`Application listening on port ${config.port}!`);
+      console.log(`Application listening on port ${config.source.port}!`);
     });
   } catch (err) {
     console.error('Server start failed with: ', err);

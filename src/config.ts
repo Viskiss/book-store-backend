@@ -18,9 +18,13 @@ const config = {
     database: mainConfig.POSTGRES_DB_NAME,
     logging: mainConfig.POSTGRES_DB_LOGGING === 'true',
   },
-  port: mainConfig.SERVER_PORT,
-  jwtSecret: mainConfig.TOKEN_SECRET,
-  passwordSalt: mainConfig.PASSWORD_HASH_SALT_ROUND,
+  source: {
+    port: mainConfig.SERVER_PORT,
+  },
+  verify: {
+    passwordSalt: mainConfig.PASSWORD_HASH_SALT_ROUND,
+    jwtSecret: mainConfig.TOKEN_SECRET,
+  },
 };
 
 export default config;
