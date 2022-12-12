@@ -21,9 +21,9 @@ const singIn: Handler = async (req, res) => {
       return res.status(StatusCodes.NOT_FOUND).json({ message: 'Unable find user' });
     }
 
-    const matchPassword = hashPassword.match(password, existingUser.password);
+    const matchPassword = await hashPassword.match(password, existingUser.password);
 
-    if (!matchPassword) {
+    if (matchPassword === false) {
       return res.status(StatusCodes.CONFLICT).json({ message: 'Invalid credentials' });
     }
 

@@ -1,7 +1,7 @@
 import type { Handler } from 'express';
 import type * as yup from 'yup';
 
-export const revise =
+export const compare =
   (schema: yup.AnySchema): Handler => async (req, res, next) => {
     try {
       await schema.validate({

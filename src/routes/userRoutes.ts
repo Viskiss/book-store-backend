@@ -1,6 +1,6 @@
 import express from 'express';
 import { findDuble } from '../middlewares/findDuble';
-import { revise } from '../middlewares/revise';
+import { compare } from '../middlewares/revise';
 import singUp from '../controllers/sing-UpUser';
 import singIn from '../controllers/sing-InUser';
 import schemas from '../utils/schemasYup/schemas';
@@ -13,15 +13,15 @@ import updatePassword from '../controllers/updatePassword';
 
 const userRouter = express.Router();
 
-userRouter.post('/sing-up', findDuble, revise(schemas.userSchemaUp), singUp);
-userRouter.post('/sing-in', revise(schemas.userSchemaIn), singIn);
+userRouter.post('/sing-up', findDuble, compare(schemas.userSchemaUp), singUp);
+userRouter.post('/sing-in', compare(schemas.userSchemaIn), singIn);
 
 userRouter.get('/', auth, getUser);
 userRouter.get('/me', auth, getCurrentUser);
 
 userRouter.delete('/:userId', auth, deleteUser);
 
-userRouter.patch('/:userId', findDuble, revise(schemas.userSchemaUpdate), auth, updateUser);
-userRouter.patch('/:userId/password', auth, revise(schemas.userSchemaPass), updatePassword);
+userRouter.patch('/:userId', auth, findDuble, compare(schemas.userSchemaUpdate), updateUser);
+userRouter.patch('/:userId/password', auth, compare(schemas.userSchemaPass), updatePassword);
 
 export default userRouter;

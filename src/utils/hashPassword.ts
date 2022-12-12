@@ -2,12 +2,11 @@
 import bcrypt from 'bcrypt';
 import config from '../config';
 
-function match(password: string, exPass: string) {
-  console.log(password, exPass);
+async function match(password: string, exPass: string) {
   return bcrypt.compare(password, exPass);
 }
 
-function hash(password: string) {
+async function hash(password: string) {
   return bcrypt.hash(password, +config.verify.passwordSalt);
 }
 export default { match, hash };

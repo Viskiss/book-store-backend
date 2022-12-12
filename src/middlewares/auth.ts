@@ -11,8 +11,8 @@ const auth: Handler = async (req, res, next) => {
       throw new Error();
     }
 
-    const decoded = jwt.verify(token, config.verify.jwtSecret) as {id: number};
-    req.user = decoded.id;
+    const payload = jwt.verify(token, config.verify.jwtSecret) as {id: number};
+    req.user = payload.id;
     next();
   } catch (error) {
     res.status(401).send('Unahtorized');
