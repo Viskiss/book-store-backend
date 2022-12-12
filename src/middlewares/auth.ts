@@ -1,5 +1,9 @@
 import jwt from 'jsonwebtoken';
 import type { Handler } from 'express';
+import {
+  ReasonPhrases,
+  StatusCodes,
+} from 'http-status-codes';
 
 import config from '../config';
 
@@ -15,7 +19,7 @@ const auth: Handler = async (req, res, next) => {
     req.user = payload.id;
     next();
   } catch (error) {
-    res.status(401).send('Unahtorized');
+    res.status(StatusCodes.UNAUTHORIZED).send(ReasonPhrases.UNAUTHORIZED);
   }
 };
 
