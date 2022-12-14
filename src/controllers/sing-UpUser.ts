@@ -13,7 +13,7 @@ const singUp: Handler = async (req, res) => {
 
     const user = new userDb.User();
 
-    user.fullName = fullName.replace(/\s+/g, ' ').trim();
+    user.fullName = fullName?.replace(/\s+/g, ' ').trim();
     user.email = email.trim().toLowerCase();
     user.password = await hashPassword.hash(password);
     user.dob = new Date(dob);

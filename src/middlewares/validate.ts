@@ -1,7 +1,6 @@
 import type { Handler } from 'express';
 import * as yup from 'yup';
 import {
-  ReasonPhrases,
   StatusCodes,
 } from 'http-status-codes';
 
@@ -25,35 +24,13 @@ export const createValidationMiddleware = (schema: SchemaType) => {
 
       const yupSchema = yup.object().shape(rootShape);
 
-      const errors: Array<{
-        key: string;
-        path: string;
-        message: string;
-      }> = [{ key: '', path: req.path, message: req.statusMessage }];
-      yupSchema.validate(req);
-      console.log(errors);
+      await yupSchema.validate({ body: req.body, params: req.params, query: req.query });
       next();
     } catch (err) {
       res
         .status(StatusCodes.NOT_IMPLEMENTED)
-        .send(err);
+        .json([{ key: err.name, path: err.path, message: err.message }]);
     }
   };
   return validationMiddleware;
 };
-
-// export const applyValidateSchema =
-//   (schema: object): Handler => async (req, res, next) => {
-//     try {
-//       await schema({
-//         body: req.body,
-//         params: req.params,
-//         query: req.query,
-//       });
-//       return next();
-//     } catch (error) {
-//       res
-//         .status(StatusCodes.NOT_IMPLEMENTED)
-//         .send(ReasonPhrases.NOT_IMPLEMENTED);
-//     }
-//   };
