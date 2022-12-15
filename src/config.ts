@@ -25,6 +25,9 @@ const config = {
     passwordSalt: mainConfig.PASSWORD_HASH_SALT_ROUND,
     jwtSecret: mainConfig.TOKEN_SECRET,
   },
+  server: {
+    internalErrorMessage: mainConfig.SERVER_INTERNAL_ERROR_MESSAGE,
+  },
 };
 
 export default config;

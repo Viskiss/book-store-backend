@@ -6,7 +6,7 @@ import userDb from '../db/index';
 import hashPassword from '../utils/hashPassword';
 import createToken from '../utils/jwt.token';
 
-const singUp: Handler = async (req, res) => {
+const singUp: Handler = async (req, res, next) => {
   try {
     const { email, fullName, dob, password } = req.body;
 
@@ -31,9 +31,7 @@ const singUp: Handler = async (req, res) => {
 
     res.status(StatusCodes.CREATED).json({ userData, token });
   } catch (error) {
-    res
-      .status(StatusCodes.NOT_IMPLEMENTED)
-      .json('Error, unable to sing up');
+    next(error);
   }
 };
 

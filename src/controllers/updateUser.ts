@@ -2,10 +2,12 @@ import type { Handler } from 'express';
 import {
   StatusCodes,
 } from 'http-status-codes';
+import errorsMessages from '../utils/customErrors/errors';
 import token from '../utils/jwt.token';
 import userDb from '../db/index';
+import CustomError from '../utils/customErrors/customErrors';
 
-const updateUser: Handler = async (req, res) => {
+const updateUser: Handler = async (req, res, next) => {
   try {
     const { email, fullName, dob } = req.body;
     const id = +req.params.userId;
@@ -20,12 +22,15 @@ const updateUser: Handler = async (req, res) => {
       await userDb.repository.save(userToUpdate);
     }
     if (!userToUpdate) {
-      return res.status(StatusCodes.NOT_FOUND).json({ message: 'Unable to update, user not found' });
+      throw new CustomError(
+        StatusCodes.NOT_FOUND,
+        errorsMessages.ID_NOT_FOUND,
+      );
     }
 
     res.json(userToUpdate);
   } catch (error) {
-    res.status(StatusCodes.NOT_IMPLEMENTED).json('Error, unable update current user');
+    next(error);
   }
 };
 

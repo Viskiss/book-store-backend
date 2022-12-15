@@ -2,11 +2,13 @@ import type { Handler } from 'express';
 import {
   StatusCodes,
 } from 'http-status-codes';
+import errorsMessages from '../utils/customErrors/errors';
 import hashPassword from '../utils/hashPassword';
 import createToken from '../utils/jwt.token';
 import userDb from '../db/index';
+import CustomError from '../utils/customErrors/customErrors';
 
-const singIn: Handler = async (req, res) => {
+const singIn: Handler = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -17,13 +19,19 @@ const singIn: Handler = async (req, res) => {
       .getOne();
 
     if (!existingUser) {
-      return res.status(StatusCodes.NOT_FOUND).json({ message: 'Unable find user' });
+      throw new CustomError(
+        StatusCodes.NOT_FOUND,
+        errorsMessages.EMAIL_NOT_FOUND,
+      );
     }
 
     const matchPassword = await hashPassword.match(password, existingUser.password);
 
     if (matchPassword === false) {
-      return res.status(StatusCodes.CONFLICT).json({ message: 'Invalid credentials' });
+      throw new CustomError(
+        StatusCodes.CONFLICT,
+        errorsMessages.INVALID_CREDENTIALS,
+      );
     }
 
     const token = createToken.getToken(existingUser.id);
@@ -37,9 +45,7 @@ const singIn: Handler = async (req, res) => {
 
     res.status(StatusCodes.CREATED).json({ user: userData, token });
   } catch (error) {
-    res
-      .status(StatusCodes.NOT_IMPLEMENTED)
-      .json('Error, unable to sing in');
+    next(error);
   }
 };
 

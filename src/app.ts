@@ -8,6 +8,7 @@ import {
 import routes from './routes';
 import config from './config';
 import './db/entities/globalUser';
+import errorsHandler from './middlewares/errorsHandler';
 
 const app = express();
 
@@ -26,5 +27,7 @@ app.use('*', (_req, res) => {
     .status(StatusCodes.NOT_FOUND)
     .send(ReasonPhrases.NOT_FOUND);
 });
+
+app.use(errorsHandler);
 
 export default app;

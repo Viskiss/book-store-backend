@@ -2,6 +2,8 @@ import type { Handler } from 'express';
 import {
   StatusCodes,
 } from 'http-status-codes';
+import CustomError from '../utils/customErrors/customErrors';
+import errorsMessages from '../utils/customErrors/errors';
 import jwtToken from '../utils/jwt.token';
 
 const auth: Handler = async (req, res, next) => {
@@ -9,14 +11,17 @@ const auth: Handler = async (req, res, next) => {
     const token = req.header('Authorization')?.replace('Bearer ', '');
 
     if (!token) {
-      throw new Error();
+      throw new CustomError(
+        StatusCodes.FORBIDDEN,
+        errorsMessages.TOKEN_NOT_FOUND,
+      );
     }
 
     const payload = jwtToken.parseJwt(token);
     req.user = payload.id;
     next();
   } catch (error) {
-    res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Error, authorization failed' });
+    next(error);
   }
 };
 

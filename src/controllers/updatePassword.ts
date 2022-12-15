@@ -3,15 +3,21 @@ import bcrypt from 'bcrypt';
 import {
   StatusCodes,
 } from 'http-status-codes';
+import errorsMessages from '../utils/customErrors/errors';
+import succsessMessages from '../utils/customErrors/success';
 import userDb from '../db/index';
 import hashPassword from '../utils/hashPassword';
+import CustomError from '../utils/customErrors/customErrors';
 
-const updatePassword: Handler = async (req, res) => {
+const updatePassword: Handler = async (req, res, next) => {
   try {
     const password = req.body.password;
     const id = req.user;
     if (!password) {
-      return res.status(404).json({ message: 'Need pass' });
+      throw new CustomError(
+        StatusCodes.NOT_FOUND,
+        errorsMessages.NEED_PASS,
+      );
     }
 
     const existingUser = await userDb.repository
@@ -26,20 +32,24 @@ const updatePassword: Handler = async (req, res) => {
       const newPassword = hashPassword.hash(password);
       existingUser.password = (await newPassword).toString();
     } else {
-      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Need new password' });
+      throw new CustomError(
+        StatusCodes.BAD_REQUEST,
+        errorsMessages.NEED_NEW_PASS,
+      );
     }
 
     await userDb.repository.save(existingUser);
 
     if (!existingUser) {
-      return res.json({ message: 'Unable to update, user not found' });
+      throw new CustomError(
+        StatusCodes.NOT_FOUND,
+        errorsMessages.ID_NOT_FOUND,
+      );
     }
 
-    res.status(StatusCodes.OK).json({ message: 'Password changed' });
+    res.status(StatusCodes.OK).json(succsessMessages.PASS_CHANGED);
   } catch (error) {
-    res
-      .status(StatusCodes.NOT_IMPLEMENTED)
-      .json('Error, unable update password');
+    next(error);
   }
 };
 

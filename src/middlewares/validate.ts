@@ -26,10 +26,13 @@ export const createValidationMiddleware = (schema: SchemaType) => {
 
       await yupSchema.validate(req, { abortEarly: false });
       next();
-    } catch (err) {
-      res
-        .status(StatusCodes.NOT_IMPLEMENTED)
-        .json([{ key: err.name, path: err.path, message: err.message, errors: err.errors }]);
+    } catch (error) {
+      if (error) {
+        res
+          .status(StatusCodes.NOT_IMPLEMENTED)
+          .json([{ key: error.name, message: error.message, errors: error.errors }]);
+      }
+      next(error);
     }
   };
   return validationMiddleware;

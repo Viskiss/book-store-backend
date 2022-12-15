@@ -2,10 +2,9 @@ import type { Handler } from 'express';
 import {
   StatusCodes,
 } from 'http-status-codes';
-
 import userDb from '../db/index';
 
-const getCurrentUser: Handler = async (req, res) => {
+const getCurrentUser: Handler = async (req, res, next) => {
   try {
     const userId = req.user;
 
@@ -15,7 +14,7 @@ const getCurrentUser: Handler = async (req, res) => {
       res.status(StatusCodes.OK).json(currentUser);
     }
   } catch (error) {
-    res.status(StatusCodes.NOT_IMPLEMENTED).json('Error, unable to get current user');
+    next(error);
   }
 };
 

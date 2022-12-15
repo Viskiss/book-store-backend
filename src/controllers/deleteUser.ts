@@ -2,13 +2,23 @@ import type { Handler } from 'express';
 import {
   StatusCodes,
 } from 'http-status-codes';
+import CustomError from '../utils/customErrors/customErrors';
+import errorsMessages from '../utils/customErrors/errors';
+import succsessMessages from '../utils/customErrors/success';
 import userDb from '../db/index';
 import token from '../utils/jwt.token';
 
-const deleteUser: Handler = async (req, res) => {
+const deleteUser: Handler = async (req, res, next) => {
   try {
     const id = +req.params.userId;
     const userId = req.user;
+
+    if (!id) {
+      throw new CustomError(
+        StatusCodes.FORBIDDEN,
+        errorsMessages.ID_NOT_FOUND,
+      );
+    }
 
     if (id === userId) {
       const userToRemove = await userDb.repository.findOneBy({ id });
@@ -16,15 +26,21 @@ const deleteUser: Handler = async (req, res) => {
       if (token.matchJwtId(req.user, id)) { await userDb.repository.remove(userToRemove); }
 
       if (!userToRemove) {
-        return res.status(StatusCodes.NOT_IMPLEMENTED).json({ message: 'Unable to delete' });
+        throw new CustomError(
+          StatusCodes.NOT_IMPLEMENTED,
+          errorsMessages.UNABLE_TO_DELETE,
+        );
       }
 
-      res.status(StatusCodes.ACCEPTED).json('User deleted');
+      res.status(StatusCodes.ACCEPTED).json(succsessMessages.USER_DELETED);
     } else {
-      res.status(StatusCodes.METHOD_NOT_ALLOWED).json('Delete only yourself');
+      throw new CustomError(
+        StatusCodes.METHOD_NOT_ALLOWED,
+        errorsMessages.DELETE_ONLY_YORSELF,
+      );
     }
   } catch (error) {
-    res.status(StatusCodes.NOT_IMPLEMENTED).json('Error, user deletion failed');
+    next(error);
   }
 };
 
