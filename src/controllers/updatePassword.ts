@@ -33,10 +33,10 @@ const updatePassword: Handler = async (req, res) => {
     await userDb.repository.save(existingUser);
 
     if (!existingUser) {
-      return res.status(StatusCodes.NOT_FOUND).json({ message: 'Unable to update' });
+      return res.json({ message: 'Unable to update' });
     }
 
-    res.status(StatusCodes.OK).json(ReasonPhrases.OK);
+    res.status(StatusCodes.OK).json({ message: 'Password changed' });
   } catch (error) {
     res
       .status(StatusCodes.NOT_IMPLEMENTED)

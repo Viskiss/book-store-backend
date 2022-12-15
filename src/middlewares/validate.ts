@@ -24,12 +24,12 @@ export const createValidationMiddleware = (schema: SchemaType) => {
 
       const yupSchema = yup.object().shape(rootShape);
 
-      await yupSchema.validate({ body: req.body, params: req.params, query: req.query });
+      await yupSchema.validate(req, { abortEarly: false });
       next();
     } catch (err) {
       res
         .status(StatusCodes.NOT_IMPLEMENTED)
-        .json([{ key: err.name, path: err.path, message: err.message }]);
+        .json([{ key: err.name, path: err.path, message: err.message, errors: err.errors }]);
     }
   };
   return validationMiddleware;
