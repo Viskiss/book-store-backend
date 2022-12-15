@@ -1,9 +1,11 @@
 import express from 'express';
 
-import userRoutes from './userRoutes';
+import userRoutesLogin from './loginUserRoutes';
+import userRoutesLoginAfterAuth from './userRoutes';
 
 const router = express.Router();
 
-router.use('/users', userRoutes);
+router.use('/login', userRoutesLogin);
+router.use('/auth/user', userRoutesLoginAfterAuth);
 
 export default router;

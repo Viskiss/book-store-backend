@@ -3,8 +3,7 @@ import {
   StatusCodes,
 } from 'http-status-codes';
 import errorsMessages from '../utils/customErrors/errors';
-import token from '../utils/jwt.token';
-import userDb from '../db/index';
+import db from '../db/index';
 import CustomError from '../utils/customErrors/customErrors';
 
 const updateUser: Handler = async (req, res, next) => {
@@ -12,20 +11,21 @@ const updateUser: Handler = async (req, res, next) => {
     const { email, fullName, dob } = req.body;
     const id = +req.params.userId;
 
-    const userToUpdate = await userDb.repository.findOneBy({ id });
+    const userToUpdate = await db.user.findOneBy({ id: req.user.id });
 
-    if (token.matchJwtId(req.user, id)) {
-      userToUpdate.fullName = fullName || userToUpdate.fullName;
-      userToUpdate.email = email || userToUpdate.email;
-      userToUpdate.dob = dob || userToUpdate.dob;
-
-      await userDb.repository.save(userToUpdate);
-    }
     if (!userToUpdate) {
       throw new CustomError(
         StatusCodes.NOT_FOUND,
         errorsMessages.ID_NOT_FOUND,
       );
+    }
+
+    if (id === req.user.id) {
+      userToUpdate.fullName = fullName || userToUpdate.fullName;
+      userToUpdate.email = email || userToUpdate.email;
+      userToUpdate.dob = dob || userToUpdate.dob;
+
+      await db.user.save(userToUpdate);
     }
 
     res.json(userToUpdate);

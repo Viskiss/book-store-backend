@@ -1,5 +1,6 @@
 const ID_NOT_FOUND = 'Id not found';
 const TOKEN_NOT_FOUND = 'Token not found';
+const USER_NOT_FOUND = 'User not found';
 const EMAIL_NOT_FOUND = 'Unable find user';
 const INVALID_CREDENTIALS = 'Invalid credentials';
 const ERR_DELETE = 'Error, user deletion failed';
@@ -12,6 +13,7 @@ export default {
   ID_NOT_FOUND,
   EMAIL_NOT_FOUND,
   TOKEN_NOT_FOUND,
+  USER_NOT_FOUND,
   INVALID_CREDENTIALS,
   ERR_DELETE,
   DELETE_ONLY_YORSELF,

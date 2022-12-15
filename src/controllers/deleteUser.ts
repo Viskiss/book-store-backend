@@ -5,40 +5,25 @@ import {
 import CustomError from '../utils/customErrors/customErrors';
 import errorsMessages from '../utils/customErrors/errors';
 import succsessMessages from '../utils/customErrors/success';
-import userDb from '../db/index';
-import token from '../utils/jwt.token';
+import db from '../db/index';
 
 const deleteUser: Handler = async (req, res, next) => {
   try {
     const id = +req.params.userId;
-    const userId = req.user;
+    const user = req.user.id;
 
-    if (!id) {
-      throw new CustomError(
-        StatusCodes.FORBIDDEN,
-        errorsMessages.ID_NOT_FOUND,
-      );
-    }
-
-    if (id === userId) {
-      const userToRemove = await userDb.repository.findOneBy({ id });
-
-      if (token.matchJwtId(req.user, id)) { await userDb.repository.remove(userToRemove); }
-
-      if (!userToRemove) {
-        throw new CustomError(
-          StatusCodes.NOT_IMPLEMENTED,
-          errorsMessages.UNABLE_TO_DELETE,
-        );
-      }
-
-      res.status(StatusCodes.ACCEPTED).json(succsessMessages.USER_DELETED);
-    } else {
+    if (id !== user) {
       throw new CustomError(
         StatusCodes.METHOD_NOT_ALLOWED,
         errorsMessages.DELETE_ONLY_YORSELF,
       );
     }
+
+    const userToRemove = await db.user.findOneBy({ id: req.user.id });
+
+    await db.user.remove(userToRemove);
+
+    res.status(StatusCodes.ACCEPTED).json(succsessMessages.USER_DELETED);
   } catch (error) {
     next(error);
   }

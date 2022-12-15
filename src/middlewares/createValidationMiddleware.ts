@@ -1,8 +1,5 @@
 import type { Handler } from 'express';
 import * as yup from 'yup';
-import {
-  StatusCodes,
-} from 'http-status-codes';
 
 type ShapeFieldType = {
   [key: string]: yup.StringSchema | yup.NumberSchema | yup.BooleanSchema | yup.DateSchema;
@@ -27,11 +24,6 @@ export const createValidationMiddleware = (schema: SchemaType) => {
       await yupSchema.validate(req, { abortEarly: false });
       next();
     } catch (error) {
-      if (error) {
-        res
-          .status(StatusCodes.NOT_IMPLEMENTED)
-          .json([{ key: error.name, message: error.message, errors: error.errors }]);
-      }
       next(error);
     }
   };

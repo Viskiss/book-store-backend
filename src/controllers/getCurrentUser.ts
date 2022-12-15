@@ -2,17 +2,12 @@ import type { Handler } from 'express';
 import {
   StatusCodes,
 } from 'http-status-codes';
-import userDb from '../db/index';
+import db from '../db/index';
 
 const getCurrentUser: Handler = async (req, res, next) => {
   try {
-    const userId = req.user;
-
-    if (userId) {
-      const currentUser = await userDb.repository.findOneBy({ id: userId });
-
-      res.status(StatusCodes.OK).json(currentUser);
-    }
+    const currentUser = await db.user.findOneBy({ id: req.user.id });
+    res.status(StatusCodes.OK).json(currentUser);
   } catch (error) {
     next(error);
   }

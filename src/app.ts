@@ -7,7 +7,7 @@ import {
 } from 'http-status-codes';
 import routes from './routes';
 import config from './config';
-import './db/entities/globalUser';
+import './utils/globalUser';
 import errorsHandler from './middlewares/errorsHandler';
 
 const app = express();

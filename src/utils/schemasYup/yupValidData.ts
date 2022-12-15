@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-const yupValidData = {
+export const yupValidData = {
   fullName:
   yup.string().min(5, 'The fullName is too short(min 5)').trim(),
 
@@ -17,24 +17,4 @@ const yupValidData = {
 
   dob:
   yup.string(),
-};
-
-export const singUpSchema = {
-  body: {
-    fullName: yupValidData.fullName,
-    password: yupValidData.password,
-    email: yupValidData.email,
-    dob: yupValidData.dob,
-  },
-  query: {},
-  params: {},
-};
-
-export const singInSchema = {
-  body: {
-    password: yupValidData.password,
-    email: yupValidData.email,
-  },
-  query: {},
-  params: {},
 };

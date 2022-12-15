@@ -2,34 +2,28 @@ import type { Handler } from 'express';
 import {
   StatusCodes,
 } from 'http-status-codes';
-import userDb from '../db/index';
+import User from '../db/entities/User';
+import db from '../db/index';
 import hashPassword from '../utils/hashPassword';
-import createToken from '../utils/jwt.token';
+import token from '../utils/jwt.token';
 
 const singUp: Handler = async (req, res, next) => {
   try {
     const { email, fullName, dob, password } = req.body;
 
-    const user = new userDb.User();
+    const user = new User();
 
     user.fullName = fullName?.replace(/\s+/g, ' ').trim();
     user.email = email.trim().toLowerCase();
     user.password = await hashPassword.hash(password);
     user.dob = new Date(dob);
 
-    const token = createToken.getToken(user.id);
+    const tokenJwt = token.createToken(user.id);
 
-    await userDb.repository.save(user);
+    await db.user.save(user);
 
-    const userData =
-    {
-      id: user.id,
-      fullName: user.fullName,
-      email: user.email,
-      dob: user.dob,
-    };
-
-    res.status(StatusCodes.CREATED).json({ userData, token });
+    delete user.password;
+    res.status(StatusCodes.CREATED).json({ user, tokenJwt });
   } catch (error) {
     next(error);
   }
