@@ -1,6 +1,5 @@
 import type { Handler } from 'express';
 import {
-  ReasonPhrases,
   StatusCodes,
 } from 'http-status-codes';
 import userDb from '../db/index';
@@ -25,7 +24,7 @@ const deleteUser: Handler = async (req, res) => {
       res.status(StatusCodes.METHOD_NOT_ALLOWED).json('Delete only yourself');
     }
   } catch (error) {
-    res.status(StatusCodes.NOT_IMPLEMENTED).send(ReasonPhrases.NOT_IMPLEMENTED);
+    res.status(StatusCodes.NOT_IMPLEMENTED).json('Error, user deletion failed');
   }
 };
 

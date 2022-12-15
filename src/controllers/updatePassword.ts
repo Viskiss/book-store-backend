@@ -1,7 +1,6 @@
 import type { Handler } from 'express';
 import bcrypt from 'bcrypt';
 import {
-  ReasonPhrases,
   StatusCodes,
 } from 'http-status-codes';
 import userDb from '../db/index';
@@ -33,14 +32,14 @@ const updatePassword: Handler = async (req, res) => {
     await userDb.repository.save(existingUser);
 
     if (!existingUser) {
-      return res.json({ message: 'Unable to update' });
+      return res.json({ message: 'Unable to update, user not found' });
     }
 
     res.status(StatusCodes.OK).json({ message: 'Password changed' });
   } catch (error) {
     res
       .status(StatusCodes.NOT_IMPLEMENTED)
-      .send(ReasonPhrases.NOT_IMPLEMENTED);
+      .json('Error, unable update password');
   }
 };
 

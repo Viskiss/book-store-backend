@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import type { Handler } from 'express';
 import {
-  ReasonPhrases,
   StatusCodes,
 } from 'http-status-codes';
 
@@ -19,7 +18,7 @@ const auth: Handler = async (req, res, next) => {
     req.user = payload.id;
     next();
   } catch (error) {
-    res.status(StatusCodes.UNAUTHORIZED).send(ReasonPhrases.UNAUTHORIZED);
+    res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Error, authorization failed' });
   }
 };
 

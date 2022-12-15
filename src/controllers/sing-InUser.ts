@@ -1,6 +1,5 @@
 import type { Handler } from 'express';
 import {
-  ReasonPhrases,
   StatusCodes,
 } from 'http-status-codes';
 import hashPassword from '../utils/hashPassword';
@@ -40,7 +39,7 @@ const singIn: Handler = async (req, res) => {
   } catch (error) {
     res
       .status(StatusCodes.NOT_IMPLEMENTED)
-      .send(ReasonPhrases.NOT_IMPLEMENTED);
+      .json('Error, unable to sing in');
   }
 };
 

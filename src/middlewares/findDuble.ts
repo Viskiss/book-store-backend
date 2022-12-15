@@ -1,4 +1,7 @@
 import type { Handler } from 'express';
+import {
+  StatusCodes,
+} from 'http-status-codes';
 import repo from '../db/index';
 
 export const findDuble: Handler = async (req, res, next) => {
@@ -12,6 +15,6 @@ export const findDuble: Handler = async (req, res, next) => {
     }
     return next();
   } catch (error) {
-    res.status(501).send(error.message);
+    res.status(StatusCodes.CONFLICT).json({ message: 'Error, duplicate email check failed' });
   }
 };

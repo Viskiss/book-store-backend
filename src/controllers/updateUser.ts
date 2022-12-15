@@ -1,6 +1,5 @@
 import type { Handler } from 'express';
 import {
-  ReasonPhrases,
   StatusCodes,
 } from 'http-status-codes';
 import token from '../utils/jwt.token';
@@ -21,12 +20,12 @@ const updateUser: Handler = async (req, res) => {
       await userDb.repository.save(userToUpdate);
     }
     if (!userToUpdate) {
-      return res.status(StatusCodes.NOT_FOUND).json({ message: 'Unable to update' });
+      return res.status(StatusCodes.NOT_FOUND).json({ message: 'Unable to update, user not found' });
     }
 
     res.json(userToUpdate);
   } catch (error) {
-    res.status(StatusCodes.NOT_IMPLEMENTED).send(ReasonPhrases.NOT_IMPLEMENTED);
+    res.status(StatusCodes.NOT_IMPLEMENTED).json('Error, unable update current user');
   }
 };
 

@@ -1,6 +1,5 @@
 import type { Handler } from 'express';
 import {
-  ReasonPhrases,
   StatusCodes,
 } from 'http-status-codes';
 
@@ -16,7 +15,7 @@ const getCurrentUser: Handler = async (req, res) => {
       res.status(StatusCodes.OK).json(currentUser);
     }
   } catch (error) {
-    res.status(StatusCodes.NOT_IMPLEMENTED).send(ReasonPhrases.NOT_IMPLEMENTED);
+    res.status(StatusCodes.NOT_IMPLEMENTED).json('Error, unable to get current user');
   }
 };
 
