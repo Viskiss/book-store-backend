@@ -4,12 +4,13 @@ import { StatusCodes } from 'http-status-codes';
 import CustomError from '../utils/customErrors/customErrors';
 import config from '../config';
 
-const errorsHandler: ErrorRequestHandler = (err, _, res, _next) => {
+const errorsHandler: ErrorRequestHandler = (err, _req, res, _next) => {
   if (err instanceof CustomError) {
-    return res.status(err.status).json({
+    res.status(err.status).json({
       message: err.message,
       error: err.payload,
     });
+    return;
   }
 
   res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

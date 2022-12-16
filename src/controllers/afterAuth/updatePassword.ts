@@ -1,15 +1,15 @@
-import type { Handler } from 'express';
 import bcrypt from 'bcrypt';
 import {
   StatusCodes,
 } from 'http-status-codes';
-import errorsMessages from '../utils/customErrors/errors';
-import succsessMessages from '../utils/customErrors/success';
-import db from '../db/index';
-import hashPassword from '../utils/hashPassword';
-import CustomError from '../utils/customErrors/customErrors';
+import type { HandlerUpdatePasswordType } from 'src/utils/types/authTypes/updatePasswordTypes';
+import errorsMessages from '../../utils/customErrors/errors';
+import succsessMessages from '../../utils/customErrors/success';
+import db from '../../db/index';
+import hashPassword from '../../utils/hashPassword';
+import CustomError from '../../utils/customErrors/customErrors';
 
-const updatePassword: Handler = async (req, res, next) => {
+const updatePassword: HandlerUpdatePasswordType = async (req, res, next) => {
   try {
     const password = req.body.password;
     const id = req.user.id;
@@ -34,7 +34,7 @@ const updatePassword: Handler = async (req, res, next) => {
 
     await db.user.save(User);
 
-    res.status(StatusCodes.OK).json(succsessMessages.PASS_CHANGED);
+    res.status(StatusCodes.OK).json({ message: succsessMessages.PASS_CHANGED });
   } catch (error) {
     next(error);
   }

@@ -1,14 +1,14 @@
-import type { Handler } from 'express';
 import {
   StatusCodes,
 } from 'http-status-codes';
-import errorsMessages from '../utils/customErrors/errors';
-import hashPassword from '../utils/hashPassword';
-import createToken from '../utils/jwt.token';
-import db from '../db/index';
-import CustomError from '../utils/customErrors/customErrors';
+import type { HandlerSingInType } from 'src/utils/types/loginTypes/singInTypes';
+import errorsMessages from '../../utils/customErrors/errors';
+import hashPassword from '../../utils/hashPassword';
+import createToken from '../../utils/jwt.token';
+import db from '../../db/index';
+import CustomError from '../../utils/customErrors/customErrors';
 
-const singIn: Handler = async (req, res, next) => {
+const singIn: HandlerSingInType = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 

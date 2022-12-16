@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import type { Handler } from 'express';
 import {
   StatusCodes,
