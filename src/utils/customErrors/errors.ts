@@ -10,7 +10,7 @@ const NEED_PASS = 'Need password';
 const NEED_NEW_PASS = 'Need new password';
 const ERRORS_YUP = '';
 const DUBLE_EMAIL = 'User with this email is registered';
-const EXTRA_FIELD = 'Extra fields found';
+const EXTRA_FIELD = '';
 
 export default {
   EXTRA_FIELD,
