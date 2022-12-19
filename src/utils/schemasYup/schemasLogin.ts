@@ -4,7 +4,7 @@ export const singUpSchema = {
   body: {
     fullName: yupValidData.fullName,
     password: yupValidData.password,
-    email: yupValidData.email,
+    email: yupValidData.email.required(),
     dob: yupValidData.dob,
   },
 };

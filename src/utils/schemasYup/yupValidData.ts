@@ -12,8 +12,7 @@ export const yupValidData = {
   email:
   yup.string().lowercase().email().min(10, 'Min 10 length, Ex: 123@mail.ru')
     .max(30, 'Max 30 length, Ex: 123@mail.ru')
-    .trim()
-    .required('Email required'),
+    .trim(),
 
   dob:
   yup.string(),

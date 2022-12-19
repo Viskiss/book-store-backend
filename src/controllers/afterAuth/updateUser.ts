@@ -11,10 +11,12 @@ const updateUser: HandlerUpdateUserType = async (req, res, next) => {
     if (id === req.user.id) {
       const userToUpdate = await db.user.findOneBy({ id: req.user.id });
 
-      const emailUser = await findDubleEmail(email);
+      if (userToUpdate.email !== email) {
+        const emailUser = await findDubleEmail(email);
+        userToUpdate.email = emailUser || userToUpdate.email;
+      }
 
       userToUpdate.fullName = fullName || userToUpdate.fullName;
-      userToUpdate.email = emailUser;
       userToUpdate.dob = dob || userToUpdate.dob;
 
       await db.user.save(userToUpdate);
