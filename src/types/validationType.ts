@@ -4,6 +4,9 @@ type ParamsType = {
   type: string;
   errors: string[];
   path: string;
+  params: {
+    [key: string]: string;
+  };
 };
 
 type ShapeFieldType = {

@@ -12,13 +12,10 @@ export const createValidationMiddleware = (schema: SchemaType) => {
       const rootShape: Record<string, yup.AnyObjectSchema> = {};
 
       Object.entries(schema).forEach(([key, value]) => {
-        rootShape[key] = yup.object().shape(value).noUnknown(true);
+        rootShape[key] = yup.object().shape(value).noUnknown().strict();
       });
 
       const yupSchema = yup.object().shape(rootShape);
-      console.log(rootShape.body);
-
-      // extraFields(schema, req);
 
       const errorArr: Array<{ key: string; path: string; message: string }> = [];
 
@@ -27,7 +24,7 @@ export const createValidationMiddleware = (schema: SchemaType) => {
           err.inner.forEach((item) => {
             const [path, key] = item.path.split('.');
             errorArr.push({
-              key,
+              key: key || item.params?.unknown,
               path,
               message: item.errors.join(),
             });
