@@ -1,5 +1,6 @@
 import type { RequestHandler } from 'express';
 import type User from 'src/db/entities/User';
+import type { QueryType } from '../queryType';
 
 type SingInType = {
   email: User['email'];
@@ -10,7 +11,5 @@ type ResType = {
   User: User;
   token: string | object;
 };
-
-type QueryType = Record<string, never>;
 
 export type HandlerSingInType = RequestHandler<QueryType, ResType, SingInType>;

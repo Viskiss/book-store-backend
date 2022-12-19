@@ -5,30 +5,10 @@ import * as yup from 'yup';
 import { extraFields } from '../utils/extraFieldsYup';
 import CustomError from '../utils/customErrors/customErrors';
 import errorsMessages from '../utils/customErrors/errors';
-
-type ParamsType = {
-  type: string;
-  errors: string[];
-  path: string;
-};
-
-type ErrorType = {
-  inner: ParamsType[];
-  errors: string[];
-};
-
-type ShapeFieldType = {
-  [key: string]: yup.StringSchema | yup.NumberSchema | yup.BooleanSchema | yup.DateSchema;
-};
-
-type SchemaType = {
-  body?: ShapeFieldType;
-  query?: ShapeFieldType;
-  params?: ShapeFieldType;
-};
+import type { SchemaType, ErrorType } from '../utils/types/validationType/validationType';
 
 export const createValidationMiddleware = (schema: SchemaType) => {
-  const validationMiddleware: Handler = async (req, res, next) => {
+  const validationMiddleware: Handler = async (req, _res, next) => {
     try {
       const rootShape: Record<string, yup.AnyObjectSchema> = {};
       Object.entries(schema).forEach(([key, value]) => {
@@ -57,10 +37,11 @@ export const createValidationMiddleware = (schema: SchemaType) => {
           });
         });
       };
-      try {
-        await yupSchema.validate(req, { abortEarly: false });
-      } catch (error) {
-        addErrors(error);
+
+      await yupSchema.validate(req, { abortEarly: false })
+        .catch((error) => addErrors(error));
+
+      if (errorArr.length) {
         throw new CustomError(
           StatusCodes.CONFLICT,
           errorsMessages.ERRORS_YUP = 'jjjj',

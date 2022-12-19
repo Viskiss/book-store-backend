@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import type * as yup from 'yup';
 import type { Request } from 'express';
 import _ from 'lodash';
