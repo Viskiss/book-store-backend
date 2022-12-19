@@ -1,12 +1,12 @@
 import {
   StatusCodes,
 } from 'http-status-codes';
-import type { HandlerSingUpType } from 'src/utils/types/loginTypes/singUpTypes';
+import type { HandlerSingUpType } from 'src/types/singUpTypes';
 import { findDubleEmail } from '../../utils/findDuble';
 import User from '../../db/entities/User';
 import db from '../../db/index';
 import hashPassword from '../../utils/hashPassword';
-import tokenJwt from '../../utils/jwt.token';
+import tokenJwt from '../../utils/jwtToken';
 
 const singUp: HandlerSingUpType = async (req, res, next) => {
   try {

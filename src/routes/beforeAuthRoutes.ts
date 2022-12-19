@@ -1,5 +1,5 @@
 import express from 'express';
-import { singInSchema, singUpSchema } from '../utils/schemasYup/schemasLogin';
+import { singInSchema, singUpSchema } from '../utils/schemasYup/schemasAuth';
 import { createValidationMiddleware } from '../middlewares/createValidationMiddleware';
 import singUp from '../controllers/beforeAuth/singUpUser';
 import singIn from '../controllers/beforeAuth/singInUser';

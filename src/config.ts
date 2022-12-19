@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import dotenv from 'dotenv';
 import fs from 'fs';
 
@@ -18,14 +19,12 @@ const config = {
     database: mainConfig.POSTGRES_DB_NAME,
     logging: mainConfig.POSTGRES_DB_LOGGING === 'true',
   },
-  source: {
-    port: mainConfig.SERVER_PORT,
-  },
   verify: {
     passwordSalt: mainConfig.PASSWORD_HASH_SALT_ROUND,
     jwtSecret: mainConfig.TOKEN_SECRET,
   },
   server: {
+    port: mainConfig.SERVER_PORT,
     internalErrorMessage: mainConfig.SERVER_INTERNAL_ERROR_MESSAGE,
   },
 };

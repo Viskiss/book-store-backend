@@ -1,13 +1,11 @@
 import {
   StatusCodes,
 } from 'http-status-codes';
-import type { HandlerCurrentUserType } from 'src/utils/types/authTypes/currentUserTypes';
-import db from '../../db/index';
+import type { HandlerCurrentUserType } from 'src/types/authTypes/currentUserTypes';
 
 const getCurrentUser: HandlerCurrentUserType = async (req, res, next) => {
   try {
-    const currentUser = await db.user.findOneBy({ id: req.user.id });
-    res.status(StatusCodes.OK).json({ user: currentUser });
+    res.status(StatusCodes.OK).json({ user: req.user });
   } catch (error) {
     next(error);
   }

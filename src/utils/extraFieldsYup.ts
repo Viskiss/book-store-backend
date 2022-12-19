@@ -1,7 +1,8 @@
 import type * as yup from 'yup';
 import type { Request } from 'express';
 import _ from 'lodash';
-import errorsMessages from '../utils/customErrors/errors';
+import { StatusCodes } from 'http-status-codes';
+import CustomError from './customErrors/customErrors';
 
 type ShapeFieldType = {
   [key: string]: yup.StringSchema | yup.NumberSchema | yup.BooleanSchema | yup.DateSchema;
@@ -14,6 +15,7 @@ type SchemaType = {
 };
 
 export const extraFields = (schema: SchemaType, object: Request) => {
+  let extraFields = '';
   const keysRequest = [
     ...Object.keys(object.body),
     ...Object.keys(object.params),
@@ -25,10 +27,15 @@ export const extraFields = (schema: SchemaType, object: Request) => {
     ...Object.keys(schema.params ? schema.params : {}),
     ...Object.keys(schema.query ? schema.query : {}),
   ];
+
   const invalidFields = _.difference(keysRequest, keysSchema);
+  const invString = invalidFields.join(', ');
+  extraFields = `Extra fields found ${invString}`;
   if (invalidFields.length) {
-    errorsMessages.EXTRA_FIELD = `Extra fields found ${invalidFields}`;
-    return invalidFields;
+    throw new CustomError(
+      StatusCodes.CONFLICT,
+      extraFields,
+    );
   }
   return false;
 };

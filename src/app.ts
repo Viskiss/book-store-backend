@@ -1,10 +1,10 @@
-import 'reflect-metadata';
 import express from 'express';
 import cors from 'cors';
 import {
   ReasonPhrases,
   StatusCodes,
 } from 'http-status-codes';
+
 import routes from './routes';
 import config from './config';
 import './utils/globalUser';

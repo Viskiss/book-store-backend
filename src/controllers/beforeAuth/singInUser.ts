@@ -1,10 +1,10 @@
 import {
   StatusCodes,
 } from 'http-status-codes';
-import type { HandlerSingInType } from 'src/utils/types/loginTypes/singInTypes';
+import type { HandlerSingInType } from 'src/types/singInTypes';
 import errorsMessages from '../../utils/customErrors/errors';
 import hashPassword from '../../utils/hashPassword';
-import createToken from '../../utils/jwt.token';
+import createToken from '../../utils/jwtToken';
 import db from '../../db/index';
 import CustomError from '../../utils/customErrors/customErrors';
 

@@ -4,7 +4,7 @@ import {
 } from 'http-status-codes';
 import CustomError from '../utils/customErrors/customErrors';
 import errorsMessages from '../utils/customErrors/errors';
-import jwtToken from '../utils/jwt.token';
+import jwtToken from '../utils/jwtToken';
 import db from '../db/index';
 
 const auth: Handler = async (req, _res, next) => {

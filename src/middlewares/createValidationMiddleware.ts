@@ -1,45 +1,38 @@
-/* eslint-disable no-console */
 import type { Handler } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
-import { extraFields } from '../utils/extraFieldsYup';
+// import { extraFields } from '../utils/extraFieldsYup';
 import CustomError from '../utils/customErrors/customErrors';
 import errorsMessages from '../utils/customErrors/errors';
-import type { SchemaType, ErrorType } from '../utils/types/validationType/validationType';
+import type { SchemaType, ErrorType } from '../types/validationType';
 
 export const createValidationMiddleware = (schema: SchemaType) => {
   const validationMiddleware: Handler = async (req, _res, next) => {
     try {
       const rootShape: Record<string, yup.AnyObjectSchema> = {};
+
       Object.entries(schema).forEach(([key, value]) => {
-        rootShape[key] = yup.object().shape(value);
+        rootShape[key] = yup.object().shape(value).noUnknown(true);
       });
 
       const yupSchema = yup.object().shape(rootShape);
+      console.log(rootShape.body);
 
-      const invalidFields = extraFields(schema, req);
+      // extraFields(schema, req);
 
-      if (invalidFields) {
-        throw new CustomError(
-          StatusCodes.CONFLICT,
-          errorsMessages.EXTRA_FIELD,
-        );
-      }
-
-      const errorArr: Array<{key: string; path: string; message: string[]}> = [];
-
-      const addErrors = (err: ErrorType) => {
-        err.inner.forEach((item) => {
-          errorArr.push({
-            key: item.type,
-            path: item.path,
-            message: item.errors,
-          });
-        });
-      };
+      const errorArr: Array<{ key: string; path: string; message: string }> = [];
 
       await yupSchema.validate(req, { abortEarly: false })
-        .catch((error) => addErrors(error));
+        .catch((err: ErrorType) => {
+          err.inner.forEach((item) => {
+            const [path, key] = item.path.split('.');
+            errorArr.push({
+              key,
+              path,
+              message: item.errors.join(),
+            });
+          });
+        });
 
       if (errorArr.length) {
         throw new CustomError(

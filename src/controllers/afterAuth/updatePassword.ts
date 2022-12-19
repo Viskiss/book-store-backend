@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import {
   StatusCodes,
 } from 'http-status-codes';
-import type { HandlerUpdatePasswordType } from 'src/utils/types/authTypes/updatePasswordTypes';
+import type { HandlerUpdatePasswordType } from 'src/types/authTypes/updatePasswordTypes';
 import errorsMessages from '../../utils/customErrors/errors';
 import succsessMessages from '../../utils/customErrors/success';
 import db from '../../db/index';
@@ -14,7 +14,7 @@ const updatePassword: HandlerUpdatePasswordType = async (req, res, next) => {
     const password = req.body.password;
     const id = req.user.id;
 
-    const User = await db.user
+    const user = await db.user
       .createQueryBuilder('user')
       .addSelect('user.password')
       .where('user.id = :id', { id })
@@ -24,7 +24,7 @@ const updatePassword: HandlerUpdatePasswordType = async (req, res, next) => {
 
     if (!matchPassword) {
       const newPassword = await hashPassword.hash(password);
-      User.password = newPassword.toString();
+      user.password = newPassword.toString();
     } else {
       throw new CustomError(
         StatusCodes.BAD_REQUEST,
@@ -32,7 +32,7 @@ const updatePassword: HandlerUpdatePasswordType = async (req, res, next) => {
       );
     }
 
-    await db.user.save(User);
+    await db.user.save(user);
 
     res.status(StatusCodes.OK).json({ message: succsessMessages.PASS_CHANGED });
   } catch (error) {

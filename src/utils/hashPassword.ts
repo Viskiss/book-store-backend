@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import bcrypt from 'bcrypt';
 import config from '../config';
 
