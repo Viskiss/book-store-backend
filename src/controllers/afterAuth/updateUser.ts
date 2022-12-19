@@ -1,5 +1,5 @@
 import type { HandlerUpdateUserType } from 'src/utils/types/authTypes/updateUserTypes';
-import { findDubleUpdate } from '../../utils/findDuble';
+import { findDubleEmail } from '../../utils/findDuble';
 
 import db from '../../db/index';
 
@@ -11,7 +11,7 @@ const updateUser: HandlerUpdateUserType = async (req, res, next) => {
     if (id === req.user.id) {
       const userToUpdate = await db.user.findOneBy({ id: req.user.id });
 
-      const emailUser = await findDubleUpdate(req.user.email, email);
+      const emailUser = await findDubleEmail(email);
 
       userToUpdate.fullName = fullName || userToUpdate.fullName;
       userToUpdate.email = emailUser;

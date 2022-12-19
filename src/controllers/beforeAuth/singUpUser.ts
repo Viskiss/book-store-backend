@@ -2,7 +2,7 @@ import {
   StatusCodes,
 } from 'http-status-codes';
 import type { HandlerSingUpType } from 'src/utils/types/loginTypes/singUpTypes';
-import { findDubleSingUp } from '../../utils/findDuble';
+import { findDubleEmail } from '../../utils/findDuble';
 import User from '../../db/entities/User';
 import db from '../../db/index';
 import hashPassword from '../../utils/hashPassword';
@@ -13,7 +13,7 @@ const singUp: HandlerSingUpType = async (req, res, next) => {
     const { email, fullName, dob, password } = req.body;
 
     const user = new User();
-    const emailUser = await findDubleSingUp(email);
+    const emailUser = await findDubleEmail(email);
 
     user.fullName = fullName.trim();
     user.email = emailUser.trim().toLowerCase();
