@@ -44,7 +44,7 @@ export const createValidationMiddleware = (schema: SchemaType) => {
       if (errorArr.length) {
         throw new CustomError(
           StatusCodes.CONFLICT,
-          errorsMessages.ERRORS_YUP = 'jjjj',
+          errorsMessages.ERRORS_YUP,
           errorArr,
         );
       }
