@@ -1,7 +1,6 @@
 import type { Handler } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
-// import { extraFields } from '../utils/extraFieldsYup';
 import CustomError from '../utils/customErrors/customErrors';
 import errorsMessages from '../utils/customErrors/errors';
 import type { SchemaType, ErrorType } from '../types/validationType';
