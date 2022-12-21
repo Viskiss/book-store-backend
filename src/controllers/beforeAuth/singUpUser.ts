@@ -10,16 +10,14 @@ import tokenJwt from '../../utils/jwtToken';
 
 const singUp: HandlerSingUpType = async (req, res, next) => {
   try {
-    const { email, fullName, dob, password } = req.body;
+    const { email, password } = req.body;
 
     const user = new User();
     const emailUser = await findDubleEmail(email);
 
-    user.fullName = fullName.trim();
     user.email = emailUser.trim().toLowerCase();
 
     user.password = await hashPassword.hash(password);
-    user.dob = new Date(dob);
 
     const token = tokenJwt.createToken(user.id);
 
@@ -28,6 +26,7 @@ const singUp: HandlerSingUpType = async (req, res, next) => {
     delete user.password;
     res.status(StatusCodes.CREATED).json({ user, token });
   } catch (error) {
+    // res.status(400).send(error.message);
     next(error);
   }
 };

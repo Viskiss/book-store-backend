@@ -25,6 +25,7 @@ const config = {
   },
   server: {
     port: mainConfig.SERVER_PORT,
+    front: mainConfig.CLIENT_APP_URL,
     internalErrorMessage: mainConfig.SERVER_INTERNAL_ERROR_MESSAGE,
   },
 };

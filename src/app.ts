@@ -14,7 +14,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: config.postgresDb.host,
+    origin: config.server.front,
   }),
 );
 
