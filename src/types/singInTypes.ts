@@ -8,7 +8,7 @@ type SingInType = {
 };
 
 type ResType = {
-  User: User;
+  user: User;
   token: string | object;
 };
 
