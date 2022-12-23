@@ -11,7 +11,8 @@ export const createValidationMiddleware = (schema: SchemaType) => {
       const rootShape: Record<string, yup.AnyObjectSchema> = {};
 
       Object.entries(schema).forEach(([key, value]) => {
-        rootShape[key] = yup.object().shape(value).noUnknown().strict();
+        rootShape[key] = yup.object().shape(value).noUnknown();
+        // rootShape[key] = yup.object().shape(value).noUnknown().strict();
       });
 
       const yupSchema = yup.object().shape(rootShape);

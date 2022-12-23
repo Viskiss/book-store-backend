@@ -23,6 +23,5 @@ export const yupValidData = {
     .trim(),
 
   dob: yup
-    .string()
-    .test('test_date', 'Invalid Date', (value) => new Date(value).toString() !== 'Invalid Date'),
+    .string(),
 };
