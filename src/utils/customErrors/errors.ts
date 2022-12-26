@@ -10,8 +10,10 @@ const NEED_PASS = 'Need password';
 const NEED_NEW_PASS = 'Need new password';
 const ERRORS_YUP = 'ValidationError';
 const DUBLE_EMAIL = 'User with this email is registered';
+const MATCH_PASSWORD = 'Enter your password';
 
 export default {
+  MATCH_PASSWORD,
   DUBLE_EMAIL,
   ERRORS_YUP,
   ID_NOT_FOUND,

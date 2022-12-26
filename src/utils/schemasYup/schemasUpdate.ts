@@ -19,6 +19,7 @@ export const updateUserSchema = {
 export const passwordSchema = {
   body: {
     password: yupValidData.password,
+    newPassword: yupValidData.newPassword,
   },
   params: { userId: sharedValidation.requiredParamsId },
 };

@@ -12,6 +12,7 @@ import CustomError from '../../utils/customErrors/customErrors';
 const updatePassword: HandlerUpdatePasswordType = async (req, res, next) => {
   try {
     const password = req.body.password;
+    const newPasswordUser = req.body.newPassword;
     const id = req.user.id;
 
     const user = await db.user
@@ -20,21 +21,30 @@ const updatePassword: HandlerUpdatePasswordType = async (req, res, next) => {
       .where('user.id = :id', { id })
       .getOne();
 
-    const matchPassword = await bcrypt.compare(password, req.user.password);
+    const currentUserPassword = await bcrypt.compare(password, user.password);
 
-    if (!matchPassword) {
-      const newPassword = await hashPassword.hash(password);
-      user.password = newPassword.toString();
+    if (currentUserPassword) {
+      const matchPassword = await bcrypt.compare(newPasswordUser, user.password);
+
+      if (!matchPassword) {
+        const newPassword = await hashPassword.hash(newPasswordUser);
+        user.password = newPassword.toString();
+      } else {
+        throw new CustomError(
+          StatusCodes.BAD_REQUEST,
+          errorsMessages.NEED_NEW_PASS,
+        );
+      }
+
+      await db.user.save(user);
+
+      res.status(StatusCodes.OK).json({ message: succsessMessages.PASS_CHANGED });
     } else {
       throw new CustomError(
         StatusCodes.BAD_REQUEST,
-        errorsMessages.NEED_NEW_PASS,
+        errorsMessages.MATCH_PASSWORD,
       );
     }
-
-    await db.user.save(user);
-
-    res.status(StatusCodes.OK).json({ message: succsessMessages.PASS_CHANGED });
   } catch (error) {
     next(error);
   }

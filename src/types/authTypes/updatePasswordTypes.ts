@@ -4,6 +4,7 @@ import type { QueryType } from '../queryType';
 
 type UpdateUserType = {
   password: User['password'];
+  newPassword: string;
 };
 
 type ResType = {

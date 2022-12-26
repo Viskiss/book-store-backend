@@ -14,6 +14,14 @@ export const yupValidData = {
     .trim()
     .required('Password required'),
 
+  newPassword: yup
+    .string()
+    .lowercase()
+    .min(5, 'The password is too short(min 5)')
+    .max(15, 'Too long password(max 15)')
+    .trim()
+    .required('new Password required'),
+
   email: yup
     .string()
     .lowercase()
