@@ -11,8 +11,6 @@ const updateUser: HandlerUpdateUserType = async (req, res, next) => {
     const { email, fullName, dob } = req.body;
     const id = +req.params.userId;
 
-    // eslint-disable-next-line no-console
-    console.log(id);
     const userToUpdate = await db.user.findOneBy({ id });
 
     if (!userToUpdate) {
