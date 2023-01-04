@@ -26,7 +26,6 @@ const singUp: HandlerSingUpType = async (req, res, next) => {
     delete user.password;
     res.status(StatusCodes.CREATED).json({ user, token });
   } catch (error) {
-    // res.status(400).send(error.message);
     next(error);
   }
 };

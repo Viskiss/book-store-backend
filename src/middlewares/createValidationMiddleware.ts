@@ -6,7 +6,7 @@ import errorsMessages from '../utils/customErrors/errors';
 import type { SchemaType, ErrorType } from '../types/validationType';
 
 export const createValidationMiddleware = (schema: SchemaType) => {
-  const validationMiddleware: Handler = async (req, _res, next) => {
+  const validationMiddleware: Handler = async (req, res, next) => {
     try {
       const rootShape: Record<string, yup.AnyObjectSchema> = {};
 
@@ -41,7 +41,8 @@ export const createValidationMiddleware = (schema: SchemaType) => {
 
       next();
     } catch (error) {
-      next(error);
+      res.status(400).send(error.message);
+      // next(error);
     }
   };
   return validationMiddleware;
