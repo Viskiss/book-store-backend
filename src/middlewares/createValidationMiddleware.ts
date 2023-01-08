@@ -41,8 +41,7 @@ export const createValidationMiddleware = (schema: SchemaType) => {
 
       next();
     } catch (error) {
-      res.status(400).send(error.message);
-      // next(error);
+      next(error);
     }
   };
   return validationMiddleware;
