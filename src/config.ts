@@ -24,6 +24,7 @@ const config = {
     jwtSecret: mainConfig.TOKEN_SECRET,
   },
   server: {
+    currentUrl: mainConfig.CURRENT_URL,
     port: mainConfig.SERVER_PORT,
     front: mainConfig.CLIENT_APP_URL,
     internalErrorMessage: mainConfig.SERVER_INTERNAL_ERROR_MESSAGE,

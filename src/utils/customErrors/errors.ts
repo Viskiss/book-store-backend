@@ -1,6 +1,7 @@
 const ID_NOT_FOUND = 'Id not found';
 const TOKEN_NOT_FOUND = 'Token not found';
 const USER_NOT_FOUND = 'User not found';
+const AVATAR_NOT_FOUND = 'Avatar not found';
 const EMAIL_NOT_FOUND = 'Unable find user';
 const INVALID_CREDENTIALS = 'Invalid credentials';
 const ERR_DELETE = 'Error, user deletion failed';
@@ -16,6 +17,7 @@ export default {
   MATCH_PASSWORD,
   DUBLE_EMAIL,
   ERRORS_YUP,
+  AVATAR_NOT_FOUND,
   ID_NOT_FOUND,
   EMAIL_NOT_FOUND,
   TOKEN_NOT_FOUND,

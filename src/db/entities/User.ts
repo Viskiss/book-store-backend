@@ -16,6 +16,9 @@ export class User {
 
   @Column({ type: 'date', nullable: true })
   dob: Date | string;
+
+  @Column({ type: 'varchar', nullable: true })
+  avatar: string;
 }
 
 export default User;
