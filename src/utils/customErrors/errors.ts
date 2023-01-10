@@ -12,9 +12,13 @@ const NEED_NEW_PASS = 'Need new password';
 const ERRORS_YUP = 'ValidationError';
 const DUBLE_EMAIL = 'User with this email is registered';
 const MATCH_PASSWORD = 'Enter your password';
+const UNABLE_TO_DELETE_OLD_AVATAR = 'Unable to delete old avatar';
+const UNABLE_SAVE_NEW_AVATAR = 'Unable save new avatar';
 
 export default {
   MATCH_PASSWORD,
+  UNABLE_TO_DELETE_OLD_AVATAR,
+  UNABLE_SAVE_NEW_AVATAR,
   DUBLE_EMAIL,
   ERRORS_YUP,
   AVATAR_NOT_FOUND,

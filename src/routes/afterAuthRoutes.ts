@@ -8,7 +8,6 @@ import deleteUser from '../controllers/afterAuth/deleteUser';
 import getCurrentUser from '../controllers/afterAuth/getCurrentUser';
 import updateUser from '../controllers/afterAuth/updateUser';
 import updatePassword from '../controllers/afterAuth/updatePassword';
-import upload from '../middlewares/uploadAvatar';
 
 const userRouter = express.Router();
 
@@ -19,7 +18,7 @@ userRouter.get('/me', getCurrentUser);
 
 userRouter.delete('/:userId', createValidationMiddleware(deleteUserSchema), deleteUser);
 
-userRouter.post('/upload', upload.single('avatar'), avatarUser);
+userRouter.post('/upload', avatarUser);
 
 userRouter.patch('/:userId', createValidationMiddleware(updateUserSchema), updateUser);
 userRouter.patch('/:userId/password', createValidationMiddleware(passwordSchema), updatePassword);

@@ -4,6 +4,7 @@ import type { QueryType } from '../queryType';
 
 type CurrentUserType = {
   id: User['id'];
+  avatar: string;
 };
 
 type ResType = {

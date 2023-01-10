@@ -1,16 +1,21 @@
 import express from 'express';
 import cors from 'cors';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import bodyParser from 'body-parser';
+import path from 'path';
 
 import routes from './routes';
 import config from './config';
 import './utils/globalUser';
 import errorsHandler from './middlewares/errorsHandler';
-// import { storageConfig } from './controllers/afterAuth/avatarUser';
 
 const app = express();
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+
+// app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(
