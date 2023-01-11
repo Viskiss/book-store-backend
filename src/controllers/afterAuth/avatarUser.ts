@@ -17,7 +17,7 @@ const avatarUser: HandlerCurrentUserType = async (req, res, next) => {
     const filedata = req.body.avatar;
 
     const avatarData = filedata.split('base64,')[1];
-    const avatarType = filedata.split(';')[0].split('/')[1];
+    const avatarType = filedata.split(';')[0].split('/')[1].replace(/svg\+xml/, 'svg');
     const randomName = uuid.v4();
     const avatarName = `${randomName}.${avatarType}`;
     const route = `public/avatars/${avatarName}`;
