@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, AfterLoad } from 'typeorm';
+
+import { addUrl } from '../../utils/setUrlAvatar';
 
 @Entity()
 export class User {
@@ -19,6 +21,11 @@ export class User {
 
   @Column({ type: 'varchar', nullable: true })
   avatar: string;
+
+  @AfterLoad()
+  setUrlAvatar(): void {
+    this.avatar = addUrl(this.avatar);
+  }
 }
 
 export default User;

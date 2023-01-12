@@ -7,7 +7,6 @@ import hashPassword from '../../utils/hashPassword';
 import createToken from '../../utils/jwtToken';
 import db from '../../db/index';
 import CustomError from '../../utils/customErrors/customErrors';
-import config from '../../config';
 
 const singIn: HandlerSingInType = async (req, res, next) => {
   try {
@@ -38,7 +37,6 @@ const singIn: HandlerSingInType = async (req, res, next) => {
     const token = createToken.createToken(user.id);
 
     delete user.password;
-    user.avatar = `${config.server.currentUrl}/avatars/${user.avatar}`;
     res.status(StatusCodes.OK).json({ user, token });
   } catch (error) {
     next(error);

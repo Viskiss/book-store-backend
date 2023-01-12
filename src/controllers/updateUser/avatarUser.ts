@@ -7,7 +7,6 @@ import type { HandlerCurrentUserType } from 'src/types/authTypes/currentUserType
 import CustomError from '../../utils/customErrors/customErrors';
 import errorsMessages from '../../utils/customErrors/errors';
 import db from '../../db';
-import config from '../../config';
 
 const avatarUser: HandlerCurrentUserType = async (req, res, next) => {
   try {
@@ -24,7 +23,7 @@ const avatarUser: HandlerCurrentUserType = async (req, res, next) => {
 
     if (User.avatar) {
       const oldName = User.avatar;
-      fs.unlink(`public/avatars/${oldName}`);
+      fs.unlink(`public/avatars/${oldName.slice(30)}`);
     }
     fs.writeFile(route, avatarData, { encoding: 'base64' });
 
@@ -37,8 +36,9 @@ const avatarUser: HandlerCurrentUserType = async (req, res, next) => {
       );
     } else {
       await db.user.save(User);
-      User.avatar = `${config.server.currentUrl}/avatars/${avatarName}`;
-      res.status(StatusCodes.OK).json({ user: User });
+      const newUser = await db.user.createQueryBuilder('user').where('user.id = :id', { id: User.id })
+        .getOne();
+      res.status(StatusCodes.OK).json({ user: newUser });
     }
   } catch (error) {
     next(error);
