@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, AfterLoad } from 'typeorm';
 
-import { addUrl } from '../../utils/setUrlAvatar';
+import { addUrlAvatar } from '../../utils/setUrl';
 
 @Entity()
 export class User {
@@ -24,7 +24,7 @@ export class User {
 
   @AfterLoad()
   setUrlAvatar(): void {
-    this.avatar = addUrl(this.avatar);
+    this.avatar = addUrlAvatar(this.avatar);
   }
 }
 

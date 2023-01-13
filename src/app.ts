@@ -23,7 +23,6 @@ app.use(
     origin: config.server.front,
   }),
 );
-
 app.use(express.static(__dirname));
 app.use('/api', routes);
 
@@ -32,5 +31,8 @@ app.use('*', (_req, res) => {
 });
 
 app.use(errorsHandler);
+// setTimeout(() => {
+//   bookUp();
+// }, 5000);
 
 export default app;
