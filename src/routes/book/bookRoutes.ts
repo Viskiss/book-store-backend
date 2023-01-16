@@ -1,10 +1,11 @@
 import express from 'express';
+import showSelectBook from '../../controllers/books/showSelectBook';
 import getBooks from '../../controllers/books/getBooks';
 
 const userRouter = express.Router();
 
 userRouter.get('/books', getBooks);
-// userRouter.get('/me', getCurrentUser);
+userRouter.get('/:bookId', showSelectBook);
 
 // userRouter.delete('/:userId', createValidationMiddleware(deleteUserSchema), deleteUser);
 

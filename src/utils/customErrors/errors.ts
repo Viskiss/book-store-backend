@@ -14,8 +14,10 @@ const DUBLE_EMAIL = 'User with this email is registered';
 const MATCH_PASSWORD = 'Enter your password';
 const UNABLE_TO_DELETE_OLD_AVATAR = 'Unable to delete old avatar';
 const UNABLE_SAVE_NEW_AVATAR = 'Unable save new avatar';
+const BOOK_NOT_FOUND = 'Book not found';
 
 export default {
+  BOOK_NOT_FOUND,
   MATCH_PASSWORD,
   UNABLE_TO_DELETE_OLD_AVATAR,
   UNABLE_SAVE_NEW_AVATAR,
