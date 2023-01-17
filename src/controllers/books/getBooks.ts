@@ -1,7 +1,7 @@
 import {
   StatusCodes,
 } from 'http-status-codes';
-import type { HandlerGetBooksType } from '../../types/books/getBooksTypes';
+import type { HandlerGetBooksType } from '../../types/books/getBooksTypes ';
 import db from '../../db/index';
 
 const getBooks: HandlerGetBooksType = async (req, res, next) => {
