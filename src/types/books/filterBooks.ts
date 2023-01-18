@@ -5,7 +5,7 @@ import type Genre from 'src/db/entities/book/Genre';
 import type { QueryType } from '../queryType';
 
 type SelectBookType = {
-  id: Genre['id'];
+  filter: Genre['name'];
 };
 
 type ResType = {

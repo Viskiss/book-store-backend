@@ -3,7 +3,7 @@ import express from 'express';
 import showSelectBook from '../../controllers/books/showSelectBook';
 import getBooks from '../../controllers/books/getBooks';
 import getGenres from '../../controllers/books/getGenres';
-import filterGerne from '../../controllers/books/fiterGerne';
+import filterGenre from '../../controllers/books/fiterGenre';
 
 const userRouter = express.Router();
 
@@ -12,7 +12,7 @@ userRouter.get('/gernes', getGenres);
 
 userRouter.get('/:bookId', showSelectBook);
 
-userRouter.get('/:books/:filter', filterGerne);
+userRouter.get('/:books/:filter', filterGenre);
 
 // userRouter.delete('/:userId', createValidationMiddleware(deleteUserSchema), deleteUser);
 
