@@ -1,6 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, AfterLoad, ManyToMany, JoinTable } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  AfterLoad,
+  ManyToMany,
+  JoinTable,
+  OneToMany,
+} from 'typeorm';
+
 import { addUrlBook } from '../../../utils/setUrl';
 import Genre from './Genre';
+import UserComment from './UserComment';
 
 @Entity()
 export class Book {
@@ -13,7 +23,7 @@ export class Book {
   @Column({ type: 'varchar', nullable: false })
   author: string;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'numeric', nullable: false })
   price: string;
 
   @Column({ type: 'varchar', nullable: false })
@@ -38,7 +48,10 @@ export class Book {
 
   @ManyToMany(() => Genre, (genre) => genre.name)
   @JoinTable()
-    genre: Genre[];
+  genre: Genre[];
+
+  @OneToMany(() => UserComment, (comment) => comment.book)
+  comments: UserComment[];
 }
 
 export default Book;

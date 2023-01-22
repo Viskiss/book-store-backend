@@ -1,4 +1,4 @@
-import Book from '../db/entities/book/Book';
+import Book from '../db/entities/bookStore/Book';
 import db from '../db/index';
 import books from './books';
 

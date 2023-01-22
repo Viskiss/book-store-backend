@@ -1,5 +1,5 @@
 import type { RequestHandler } from 'express';
-import type Genre from 'src/db/entities/book/Genre';
+import type Genre from 'src/db/entities/bookStore/Genre';
 
 import type { QueryType } from '../queryType';
 

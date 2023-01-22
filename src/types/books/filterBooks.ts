@@ -1,24 +1,25 @@
 import type { RequestHandler } from 'express';
 
-import type Book from 'src/db/entities/book/Book';
-import type Genre from 'src/db/entities/book/Genre';
+import type Book from 'src/db/entities/bookStore/Book';
+import type Genre from 'src/db/entities/bookStore/Genre';
 
 type ParamsType = Record<string, never>;
 type BodyType = Record<string, never>;
 
 type QueryType = {
-  filters: {
-    genre?: Genre['name'];
-    select?: string;
-    search?: string;
-    page?: number;
-    minPrice?: number;
-    maxPrice?: number;
-  };
+  genre?: Genre['name'];
+  select?: string;
+  search?: string;
+  page?: number;
+  minPrice?: number;
+  maxPrice?: number;
+
 };
 
 type ResType = {
   books: Book[];
+  counterBooks: number;
+  numberPages: number;
 };
 
 export type HandlerFilterBooksType = RequestHandler<

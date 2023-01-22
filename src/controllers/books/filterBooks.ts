@@ -1,6 +1,4 @@
-import {
-  StatusCodes,
-} from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 
 import type { HandlerFilterBooksType } from 'src/types/books/filterBooks';
 
@@ -8,54 +6,69 @@ import db from '../../db/index';
 
 const filterGenre: HandlerFilterBooksType = async (req, res, next) => {
   try {
-    // const { genre, search, select } = req.query.filters;
+    const { genre, search, select } = req.query;
+    const page = Number(req.query.page);
     let filterSelect;
 
-    // const minPrice = 50;
-    // const maxPrice = 60;
-    // const arrGenre = genre.split(',');
+    const minPrice = req.query.minPrice;
+    const maxPrice = req.query.maxPrice;
+    const arrGenre = genre?.split(',');
+    console.log(genre);
 
-    // switch (select) {
-    // case 'Price':
-    //   filterSelect = 'price';
-    //   break;
-    // case 'Name':
-    //   filterSelect = 'title';
-    //   break;
-    // case 'Author name':
-    //   filterSelect = 'author';
-    //   break;
-    // case 'Rating':
-    //   filterSelect = 'rate';
-    //   break;
-    // case 'Date of issue':
-    //   filterSelect = 'date';
-    //   break;
-    // default: break;
-    // }
+    switch (select) {
+    case 'Price':
+      filterSelect = 'price';
+      break;
+    case 'Name':
+      filterSelect = 'title';
+      break;
+    case 'Author name':
+      filterSelect = 'author';
+      break;
+    case 'Rating':
+      filterSelect = 'rate';
+      break;
+    case 'Date of issue':
+      filterSelect = 'date';
+      break;
+    default:
+      break;
+    }
 
-    // const bookId = 394;
-    const search = 'Ruin and Rising';
-
-    const filterBooks = await db.book
+    const filtredBooks = db.book
       .createQueryBuilder('book')
-      // .where('book.price BETWEEN :minPrice AND :maxPrice', { minPrice, maxPrice })
-      // .orderBy(`book.${filterSelect}`, 'ASC')
-      // .innerJoinAndSelect(
-      //   'book.genre',
-      //   'genre',
-      //   'genre.name IN (:...arrGenre)',
-      //   { arrGenre },
-      // )
-      // .where('book.title IN (:...title)', { title: search })
-      .where('book.title ILIKE :search', { search })
-      // .where('book.id = :bookId', { bookId })
+      .where('book.price BETWEEN :minPrice AND :maxPrice', {
+        minPrice,
+        maxPrice,
+      })
+      .orderBy(`book.${filterSelect}`, 'ASC');
+
+    if (genre.length) {
+      filtredBooks.innerJoinAndSelect(
+        'book.genre',
+        'genre',
+        'genre.name IN (:...arrGenre)',
+        { arrGenre },
+      );
+    }
+
+    if (search) {
+      filtredBooks.andWhere(
+        'book.title ILIKE :search OR book.author ILIKE :search',
+        { search: `%${search}%` },
+      );
+    }
+
+    const counter = (await filtredBooks.getMany()).length;
+    const books = await filtredBooks
+      .take(12)
+      .skip((page - 1) * 12)
       .getMany();
-      // eslint-disable-next-line no-console
-    console.log(search);
-    // eslint-disable-next-line no-console
-    console.log(filterBooks);
-    res.status(StatusCodes.OK).json({ books: filterBooks });
+
+    console.log(minPrice, maxPrice);
+    res
+      .status(StatusCodes.OK)
+      .json({ books, counterBooks: counter, numberPages: 12 });
   } catch (error) {
     next(error);
   }

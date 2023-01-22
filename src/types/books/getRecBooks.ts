@@ -6,4 +6,4 @@ type BooksType = {
   books: Book[];
 };
 
-export type HandlerGetBooksType = RequestHandler<QueryType, BooksType>;
+export type HandlerGetRecBooksType = RequestHandler<QueryType, BooksType>;
