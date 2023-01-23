@@ -13,7 +13,7 @@ const bookUp = async () => {
       book.price = el.price;
       book.text = el.text;
       book.rate = el.rate;
-      book.cover = '01';
+      book.cover = el.cover;
       book.date = el.date;
       book.status = el.status;
       book.genre = el.genre;

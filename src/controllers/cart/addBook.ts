@@ -1,5 +1,5 @@
-import Cart from 'src/db/entities/bookStore/Cart';
 import type { HandlerAddBookType } from 'src/types/cart/addBookTypes';
+import Cart from '../../db/entities/bookStore/Cart';
 import db from '../../db/index';
 
 export const addBook:HandlerAddBookType = async (req, res, next) => {
@@ -12,7 +12,9 @@ export const addBook:HandlerAddBookType = async (req, res, next) => {
     const cart = new Cart();
     cart.book = book;
     cart.user = user;
-    cart.bookCover = book.cover;
+    cart.author = book.author;
+    cart.title = book.title;
+    cart.cover = book.cover;
     cart.price = book.price;
 
     await db.cart.save(cart);

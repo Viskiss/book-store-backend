@@ -13,7 +13,6 @@ const filterGenre: HandlerFilterBooksType = async (req, res, next) => {
     const minPrice = req.query.minPrice;
     const maxPrice = req.query.maxPrice;
     const arrGenre = genre?.split(',');
-    console.log(genre);
 
     switch (select) {
     case 'Price':
@@ -65,9 +64,7 @@ const filterGenre: HandlerFilterBooksType = async (req, res, next) => {
       .skip((page - 1) * 12)
       .getMany();
 
-    console.log(minPrice, maxPrice);
-    res
-      .status(StatusCodes.OK)
+    res.status(StatusCodes.OK)
       .json({ books, counterBooks: counter, numberPages: 12 });
   } catch (error) {
     next(error);

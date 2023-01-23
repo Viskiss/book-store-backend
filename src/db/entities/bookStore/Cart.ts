@@ -24,7 +24,13 @@ class Cart {
   price: string;
 
   @Column({ type: 'varchar', nullable: false })
-  bookCover: string;
+  title: string;
+
+  @Column({ type: 'varchar', nullable: false })
+  author: string;
+
+  @Column({ type: 'varchar', nullable: false })
+  cover: string;
 
   @Column({ type: 'varchar', nullable: false, default: 1 })
   quantityOfGoods: number;

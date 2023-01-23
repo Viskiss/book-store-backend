@@ -21,10 +21,10 @@ const avatarUser: HandlerCurrentUserType = async (req, res, next) => {
     const avatarName = `${randomName}.${avatarType}`;
     const route = `public/avatars/${avatarName}`;
 
-    if (User.avatar !== null) {
-      const oldName = User.avatar;
-      fs.unlink(`public/avatars/${oldName.slice(30)}`);
-    }
+    // if (User.avatar !== null && 'null') {
+    //   const oldName = User.avatar;
+    //   fs.unlink(`public/avatars/${oldName.slice(30)}`);
+    // }
     fs.writeFile(route, avatarData, { encoding: 'base64' });
 
     User.avatar = avatarName;

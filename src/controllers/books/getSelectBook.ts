@@ -6,7 +6,7 @@ import db from '../../db/index';
 import CustomError from '../../utils/customErrors/customErrors';
 import errorsMessages from '../../utils/customErrors/errors';
 
-const showSelectBook: HandlerShowBookType = async (req, res, next) => {
+const getSelectBook: HandlerShowBookType = async (req, res, next) => {
   try {
     const id = +req.params.bookId;
     const book = await db.book.findOneBy({ id });
@@ -22,4 +22,4 @@ const showSelectBook: HandlerShowBookType = async (req, res, next) => {
   }
 };
 
-export default showSelectBook;
+export default getSelectBook;
