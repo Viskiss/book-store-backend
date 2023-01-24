@@ -1,7 +1,7 @@
 import type { RequestHandler } from 'express';
 import type Genre from 'src/db/entities/bookStore/Genre';
 
-import type { QueryType } from '../queryType';
+import type { QueryType } from '../emptyType';
 
 type GenresType = {
   genres: Genre[];
