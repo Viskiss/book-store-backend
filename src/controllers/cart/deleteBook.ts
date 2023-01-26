@@ -2,9 +2,9 @@ import { StatusCodes } from 'http-status-codes';
 import type { HandlerDeleteBookType } from 'src/types/cart/deleteBookTypes ';
 import db from '../../db/index';
 
-export const removeBookFromCart: HandlerDeleteBookType = async (req, res, next) => {
+const deleteBookInCart: HandlerDeleteBookType = async (req, res, next) => {
   try {
-    const cartId = Number(req.query.cartId);
+    const cartId = Number(req.params.cartId);
 
     const selectBook = await db.cart
       .createQueryBuilder('cart')
@@ -18,3 +18,5 @@ export const removeBookFromCart: HandlerDeleteBookType = async (req, res, next) 
     next(err);
   }
 };
+
+export default deleteBookInCart;

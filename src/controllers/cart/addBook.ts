@@ -8,7 +8,7 @@ import Cart from '../../db/entities/bookStore/Cart';
 import errorsMessages from '../../utils/customErrors/errors';
 import db from '../../db/index';
 
-export const addBook: HandlerAddBookType = async (req, res, next) => {
+const addBook: HandlerAddBookType = async (req, res, next) => {
   try {
     const { userId, bookId } = req.body;
 
@@ -37,3 +37,5 @@ export const addBook: HandlerAddBookType = async (req, res, next) => {
     next(err);
   }
 };
+
+export default addBook;
