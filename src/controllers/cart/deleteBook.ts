@@ -24,7 +24,13 @@ const deleteBookInCart: HandlerDeleteBookType = async (req, res, next) => {
 
     await db.cart.remove(selectBook);
 
-    res.status(StatusCodes.OK);
+    const userCart = await db.cart
+      .createQueryBuilder('cart')
+      .where('cart.userId = :userId', { userId: req.user.id })
+      .leftJoinAndSelect('cart.book', 'book')
+      .getMany();
+
+    res.status(StatusCodes.OK).json({ books: userCart });
   } catch (err) {
     next(err);
   }

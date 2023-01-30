@@ -7,4 +7,8 @@ type ParamsType = {
   cartId: Cart['id'];
 };
 
+type ResponseType = {
+  books: Cart[];
+};
+
 export type HandlerDeleteBookType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>;

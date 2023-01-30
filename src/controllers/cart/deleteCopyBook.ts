@@ -30,7 +30,14 @@ const deleteCopyBook: HandlerAddCopyBookType = async (req, res, next) => {
     } else {
       await db.cart.save(cart);
     }
-    return res.status(StatusCodes.OK);
+
+    const userCart = await db.cart
+      .createQueryBuilder('cart')
+      .where('cart.userId = :userId', { userId: req.user.id })
+      .leftJoinAndSelect('cart.book', 'book')
+      .getMany();
+
+    res.status(StatusCodes.OK).json({ books: userCart });
   } catch (err) {
     next(err);
   }
