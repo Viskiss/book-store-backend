@@ -22,6 +22,13 @@ const addBook: HandlerAddBookType = async (req, res, next) => {
       );
     }
 
+    if (!user) {
+      throw new CustomError(
+        StatusCodes.NOT_FOUND,
+        errorsMessages.USER_NOT_FOUND,
+      );
+    }
+
     const cart = new Cart();
     cart.book = book;
     cart.user = user;
@@ -29,6 +36,7 @@ const addBook: HandlerAddBookType = async (req, res, next) => {
     cart.title = book.title;
     cart.cover = book.cover;
     cart.price = book.price;
+    cart.quantityOfGoods = 1;
 
     await db.cart.save(cart);
 

@@ -35,7 +35,7 @@ export class Book {
   @Column({ type: 'varchar', nullable: false })
   cover: string;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'date', nullable: false })
   date: string;
 
   @Column({ type: 'varchar', nullable: false })

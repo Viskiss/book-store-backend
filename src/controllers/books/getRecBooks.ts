@@ -3,13 +3,13 @@ import db from '../../db/index';
 
 export const getRecommendedBooks: HandlerGetRecBooksType = async (req, res, next) => {
   try {
-    const { id } = req.query;
+    const userId = req.params.userId;
 
     const books = await db.book
       .createQueryBuilder('books')
       .getMany();
 
-    const recBooks = books.filter((item) => item.id !== Number(id))
+    const recBooks = books.filter((item) => item.id !== Number(userId))
       .sort(() => Math.random() - 0.5)
       .slice(0, 4);
 

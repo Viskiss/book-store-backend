@@ -6,7 +6,7 @@ import CustomError from '../../utils/customErrors/customErrors';
 import db from '../../db/index';
 import errorsMessages from '../../utils/customErrors/errors';
 
-const addCopyBook: HandlerAddCopyBookType = async (req, res, next) => {
+const deleteCopyBook: HandlerAddCopyBookType = async (req, res, next) => {
   try {
     const bookId = req.params.bookId;
 
@@ -23,14 +23,17 @@ const addCopyBook: HandlerAddCopyBookType = async (req, res, next) => {
       .getOne();
 
     const num = cart.quantityOfGoods;
-    cart.quantityOfGoods = +num + 1;
+    cart.quantityOfGoods = +num - 1;
 
-    await db.cart.save(cart);
-
+    if (cart.quantityOfGoods === 0) {
+      await db.cart.remove(cart);
+    } else {
+      await db.cart.save(cart);
+    }
     return res.status(StatusCodes.OK);
   } catch (err) {
     next(err);
   }
 };
 
-export default addCopyBook;
+export default deleteCopyBook;
