@@ -40,7 +40,13 @@ const addBook: HandlerAddBookType = async (req, res, next) => {
 
     await db.cart.save(cart);
 
-    return res.status(StatusCodes.OK);
+    const userCart = await db.cart
+      .createQueryBuilder('cart')
+      .where('cart.userId = :userId', { userId })
+      .leftJoinAndSelect('cart.book', 'book')
+      .getMany();
+
+    return res.status(StatusCodes.OK).json({ books: userCart });
   } catch (err) {
     next(err);
   }

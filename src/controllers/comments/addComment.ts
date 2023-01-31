@@ -1,3 +1,5 @@
+import { StatusCodes } from 'http-status-codes';
+
 import type { HandlerAddCommentType } from 'src/types/comments/addCommentTypes';
 import UserComment from '../../db/entities/bookStore/UserComment';
 
@@ -14,12 +16,7 @@ const addComment: HandlerAddCommentType = async (req, res, next) => {
 
     await db.comment.save(comment);
 
-    const resUserComment = await db.comment.createQueryBuilder('comment')
-      .where('comment.id = :id', { id: comment.id })
-      .leftJoinAndSelect('comment.user', 'user')
-      .getOne();
-
-    return res.json(resUserComment);
+    return res.status(StatusCodes.OK);
   } catch (err) {
     next(err);
   }

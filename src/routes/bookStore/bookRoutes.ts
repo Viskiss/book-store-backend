@@ -6,12 +6,12 @@ import getBooks from '../../controllers/books/getBooks';
 import getGenres from '../../controllers/books/getGenres';
 import { getRecommendedBooks } from '../../controllers/books/getRecBooks';
 
-const userRouter = express.Router();
+const bookRouter = express.Router();
 
-userRouter.get('/filter', filterBooks);
-userRouter.get('/books', getBooks);
-userRouter.get('/gernes', getGenres);
-userRouter.get('/:bookId', getSelectBook);
-userRouter.get('/recommend/:userId', getRecommendedBooks);
+bookRouter.get('/filter', filterBooks);
+bookRouter.get('/books', getBooks);
+bookRouter.get('/gernes', getGenres);
+bookRouter.get('/:bookId', getSelectBook);
+bookRouter.get('/recommend/:userId', getRecommendedBooks);
 
-export default userRouter;
+export default bookRouter;

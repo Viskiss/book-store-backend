@@ -7,14 +7,14 @@ import addCopyBook from '../../controllers/cart/addCopyBook';
 import deleteCopyBook from '../../controllers/cart/deleteCopyBook';
 import auth from '../../middlewares/auth';
 
-const userRouter = express.Router();
+const cartRouter = express.Router();
 
-userRouter.use(auth);
+cartRouter.use(auth);
 
-userRouter.post('/add', addBook);
-userRouter.get('/:userId', getBooksInCart);
-userRouter.delete('/delete/:cartId', deleteBookInCart);
-userRouter.get('/copy/:bookId', addCopyBook);
-userRouter.delete('/delete-copy/:bookId', deleteCopyBook);
+cartRouter.post('/add', addBook);
+cartRouter.get('/:userId', getBooksInCart);
+cartRouter.delete('/delete/:cartId', deleteBookInCart);
+cartRouter.get('/copy/:bookId', addCopyBook);
+cartRouter.delete('/delete-copy/:bookId', deleteCopyBook);
 
-export default userRouter;
+export default cartRouter;

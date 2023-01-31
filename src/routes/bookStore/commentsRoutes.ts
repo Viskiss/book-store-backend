@@ -1,8 +1,15 @@
 import express from 'express';
+
+import auth from '../../middlewares/auth';
+
+import getComments from '../../controllers/comments/getComments';
 import addComment from '../../controllers/comments/addComment';
 
-const userRouter = express.Router();
+const commentsRouter = express.Router();
 
-userRouter.post('/add', addComment);
+commentsRouter.use(auth);
 
-export default userRouter;
+commentsRouter.post('/add', addComment);
+commentsRouter.post('/comments/:bookId', getComments);
+
+export default commentsRouter;

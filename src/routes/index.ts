@@ -5,6 +5,7 @@ import userRoutesLoginAfterAuth from './user/userRoutes';
 import bookStoreRoutes from './bookStore/bookRoutes';
 import cartRoutes from './bookStore/cartRoutes';
 import commentRoutes from './bookStore/commentsRoutes';
+import likedBookRouters from './bookStore/likedBookRoutes';
 
 const router = express.Router();
 
@@ -13,5 +14,6 @@ router.use('/user', userRoutesLoginAfterAuth);
 router.use('/book', bookStoreRoutes);
 router.use('/cart', cartRoutes);
 router.use('/comment', commentRoutes);
+router.use('/liked', likedBookRouters);
 
 export default router;
