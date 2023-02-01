@@ -6,6 +6,7 @@ import bookStoreRoutes from './bookStore/bookRoutes';
 import cartRoutes from './bookStore/cartRoutes';
 import commentRoutes from './bookStore/commentsRoutes';
 import likedBookRouters from './bookStore/likedBookRoutes';
+import rateRouter from './bookStore/bookRateRoutes';
 
 const router = express.Router();
 
@@ -15,5 +16,6 @@ router.use('/book', bookStoreRoutes);
 router.use('/cart', cartRoutes);
 router.use('/comment', commentRoutes);
 router.use('/liked', likedBookRouters);
+router.use('/rating', rateRouter);
 
 export default router;

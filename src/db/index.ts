@@ -5,6 +5,7 @@ import Genre from './entities/bookStore/Genre';
 import Cart from './entities/bookStore/Cart';
 import UserComment from './entities/bookStore/UserComment';
 import LikedBook from './entities/bookStore/LikedBook';
+import BookRate from './entities/bookStore/BookRate';
 
 export default {
   user: dataSource.getRepository(User),
@@ -13,4 +14,5 @@ export default {
   genre: dataSource.getRepository(Genre),
   comment: dataSource.getRepository(UserComment),
   likedBook: dataSource.getRepository(LikedBook),
+  bookRate: dataSource.getRepository(BookRate),
 };
