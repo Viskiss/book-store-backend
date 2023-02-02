@@ -1,4 +1,4 @@
-import type { HandlerAddLikedBookType } from 'src/types/likedBooks/addLikedBook';
+import type { HandlerAddLikedBookType } from 'src/types/likedBooks';
 import LikedBook from '../../db/entities/bookStore/LikedBook';
 
 import db from '../../db/index';

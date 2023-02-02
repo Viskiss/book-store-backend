@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import type { HandlerFilterBooksType } from 'src/types/books/filterBooks';
+import type { HandlerFilterBooksType } from 'src/types/books';
 
 import db from '../../db/index';
 

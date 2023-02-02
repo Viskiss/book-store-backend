@@ -1,7 +1,7 @@
 import {
   StatusCodes,
 } from 'http-status-codes';
-import type { HandlerCurrentUserType } from 'src/types/authTypes/currentUserTypes';
+import type { HandlerCurrentUserType } from 'src/types/userTypes';
 
 const getCurrentUser: HandlerCurrentUserType = async (req, res, next) => {
   try {

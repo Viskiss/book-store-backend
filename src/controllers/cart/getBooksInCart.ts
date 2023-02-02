@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import type { HandlerGetBooksCartType } from '../../types/cart/getBooksInCartTypes';
+import type { HandlerGetBooksCartType } from '../../types/cart';
 
 import db from '../../db/index';
 import CustomError from '../../utils/customErrors/customErrors';

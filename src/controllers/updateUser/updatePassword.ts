@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import {
   StatusCodes,
 } from 'http-status-codes';
-import type { HandlerUpdatePasswordType } from 'src/types/authTypes/updatePasswordTypes';
+import type { HandlerUpdatePasswordType } from 'src/types/userTypes';
 import errorsMessages from '../../utils/customErrors/errors';
 import succsessMessages from '../../utils/customErrors/success';
 import db from '../../db/index';

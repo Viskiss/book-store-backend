@@ -1,4 +1,4 @@
-import type { HandlerDeleteLikedBookType } from 'src/types/likedBooks/deleteLikedBook';
+import type { HandlerDeleteLikedBookType } from 'src/types/likedBooks';
 
 import db from '../../db/index';
 

@@ -1,4 +1,4 @@
-import type { HandlerGetCommentsType } from 'src/types/comments/getCommentsTypes';
+import type { HandlerGetCommentsType } from 'src/types/comments';
 
 import db from '../../db/index';
 

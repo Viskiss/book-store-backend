@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import * as fs from 'node:fs/promises';
 import * as uuid from 'uuid';
 
-import type { HandlerCurrentUserType } from 'src/types/authTypes/currentUserTypes';
+import type { HandlerCurrentUserType } from 'src/types/userTypes';
 
 import CustomError from '../../utils/customErrors/customErrors';
 import errorsMessages from '../../utils/customErrors/errors';

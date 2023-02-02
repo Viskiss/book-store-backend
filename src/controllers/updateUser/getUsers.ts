@@ -1,7 +1,7 @@
 import {
   StatusCodes,
 } from 'http-status-codes';
-import type { HandlerGetUsersType } from 'src/types/authTypes/getUsersTypes';
+import type { HandlerGetUsersType } from 'src/types/userTypes';
 import db from '../../db/index';
 
 const getUser: HandlerGetUsersType = async (req, res, next) => {

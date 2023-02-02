@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import type { HandlerAddBookRateType } from 'src/types/bookRate/addBookRateTypes';
+import type { HandlerAddBookRateType } from 'src/types/bookRate';
 import BookRate from '../../db/entities/bookStore/BookRate';
 
 import db from '../../db/index';

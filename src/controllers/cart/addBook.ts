@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import type { HandlerAddBookType } from 'src/types/cart/addBookTypes';
+import type { HandlerAddBookType } from 'src/types/cart';
 
 import CustomError from '../../utils/customErrors/customErrors';
 import Cart from '../../db/entities/bookStore/Cart';

@@ -1,4 +1,4 @@
-import type { HandlerGetRecBooksType } from 'src/types/books/getRecBooks';
+import type { HandlerGetRecBooksType } from 'src/types/books';
 import db from '../../db/index';
 
 export const getRecommendedBooks: HandlerGetRecBooksType = async (req, res, next) => {

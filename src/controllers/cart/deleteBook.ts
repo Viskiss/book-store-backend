@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import type { HandlerDeleteBookType } from 'src/types/cart/deleteBookTypes ';
+import type { HandlerDeleteBookType } from 'src/types/cart';
 import CustomError from '../../utils/customErrors/customErrors';
 
 import errorsMessages from '../../utils/customErrors/errors';

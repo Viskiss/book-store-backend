@@ -1,7 +1,7 @@
 import {
   StatusCodes,
 } from 'http-status-codes';
-import type { HandlerGetGenresType } from 'src/types/books/getGenresTypes';
+import type { HandlerGetGenresType } from 'src/types/books';
 
 import db from '../../db/index';
 

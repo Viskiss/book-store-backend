@@ -1,7 +1,7 @@
 import {
   StatusCodes,
 } from 'http-status-codes';
-import type { HandlerDeleteUserType } from 'src/types/authTypes/deleteUserTypes';
+import type { HandlerDeleteUserType } from 'src/types/userTypes';
 import CustomError from '../../utils/customErrors/customErrors';
 import errorsMessages from '../../utils/customErrors/errors';
 import succsessMessages from '../../utils/customErrors/success';

@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import type { HandlerGetLikedBooksType } from '../../types/likedBooks/getLikedBooks';
+import type { HandlerGetLikedBooksType } from '../../types/likedBooks';
 
 import db from '../../db/index';
 import CustomError from '../../utils/customErrors/customErrors';

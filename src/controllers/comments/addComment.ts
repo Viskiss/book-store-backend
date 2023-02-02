@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import type { HandlerAddCommentType } from 'src/types/comments/addCommentTypes';
+import type { HandlerAddCommentType } from 'src/types/comments';
 import UserComment from '../../db/entities/bookStore/UserComment';
 
 import db from '../../db/index';

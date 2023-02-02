@@ -1,4 +1,4 @@
-import type { HandlerUpdateUserType } from 'src/types/authTypes/updateUserTypes';
+import type { HandlerUpdateUserType } from 'src/types/userTypes';
 import { StatusCodes } from 'http-status-codes';
 import CustomError from '../../utils/customErrors/customErrors';
 import { findDubleEmail } from '../../utils/findDuble';

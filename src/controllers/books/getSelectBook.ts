@@ -1,7 +1,7 @@
 import {
   StatusCodes,
 } from 'http-status-codes';
-import type { HandlerShowBookType } from '../../types/books/showSelectBook';
+import type { HandlerShowBookType } from '../../types/books';
 import db from '../../db/index';
 import CustomError from '../../utils/customErrors/customErrors';
 import errorsMessages from '../../utils/customErrors/errors';
