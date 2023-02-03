@@ -2,8 +2,8 @@ import express from 'express';
 
 import auth from '../../middlewares/auth';
 
-import getComments from '../../controllers/comments/getComments';
-import addComment from '../../controllers/comments/addComment';
+import getComments from '../../controllers/bookStore/comments/getComments';
+import addComment from '../../controllers/bookStore/comments/addComment';
 
 const commentsRouter = express.Router();
 

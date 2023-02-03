@@ -2,7 +2,6 @@ import type { RequestHandler } from 'express';
 
 import type Book from 'src/db/entities/bookStore/Book';
 import type Genre from 'src/db/entities/bookStore/Genre';
-import type User from 'src/db/entities/User';
 
 import type { BodyType, ParamsType, QueryType } from '../emptyType';
 
@@ -29,10 +28,6 @@ type ResponseGenresType = {
   genres: Genre[];
 };
 
-type ParamsGetRecType = {
-  userId: User['id'];
-};
-
 type ResponseGetRecType = {
   books: Book[];
 };
@@ -53,7 +48,7 @@ QueryType
 >;
 
 export type HandlerGetRecBooksType = RequestHandler<
-ParamsGetRecType,
+ParamsType,
 ResponseGetRecType,
 BodyType,
 QueryType

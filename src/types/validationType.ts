@@ -10,7 +10,11 @@ type ParamsType = {
 };
 
 type ShapeFieldType = {
-  [key: string]: yup.StringSchema | yup.NumberSchema | yup.BooleanSchema | yup.DateSchema;
+  [key: string]:
+  | yup.StringSchema
+  | yup.NumberSchema
+  | yup.BooleanSchema
+  | yup.DateSchema;
 };
 
 export type ErrorType = {

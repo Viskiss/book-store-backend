@@ -1,11 +1,12 @@
 import express from 'express';
 
-import getBooksInCart from '../../controllers/cart/getBooksInCart';
-import addBook from '../../controllers/cart/addBook';
-import deleteBookInCart from '../../controllers/cart/deleteBook';
-import addCopyBook from '../../controllers/cart/addCopyBook';
-import deleteCopyBook from '../../controllers/cart/deleteCopyBook';
 import auth from '../../middlewares/auth';
+
+import getBooksInCart from '../../controllers/bookStore/cart/getBooksInCart';
+import addBook from '../../controllers/bookStore/cart/addBook';
+import deleteBookInCart from '../../controllers/bookStore/cart/deleteBook';
+import addCopyBook from '../../controllers/bookStore/cart/addCopyBook';
+import deleteCopyBook from '../../controllers/bookStore/cart/deleteCopyBook';
 
 const cartRouter = express.Router();
 

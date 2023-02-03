@@ -1,10 +1,10 @@
 import express from 'express';
 
-import getSelectBook from '../../controllers/books/getSelectBook';
-import filterBooks from '../../controllers/books/filterBooks';
-import getBooks from '../../controllers/books/getBooks';
-import getGenres from '../../controllers/books/getGenres';
-import { getRecommendedBooks } from '../../controllers/books/getRecBooks';
+import getSelectBook from '../../controllers/bookStore/books/getSelectBook';
+import filterBooks from '../../controllers/bookStore/books/filterBooks';
+import getBooks from '../../controllers/bookStore/books/getBooks';
+import getGenres from '../../controllers/bookStore/books/getGenres';
+import getRecommendedBooks from '../../controllers/bookStore/books/getRecBooks';
 
 const bookRouter = express.Router();
 

@@ -2,9 +2,9 @@ import express from 'express';
 
 import auth from '../../middlewares/auth';
 
-import getLikedBooks from '../../controllers/likedBooks/getLikedBooks';
-import deleteLikedBook from '../../controllers/likedBooks/deleteLikedBook';
-import addLikedBook from '../../controllers/likedBooks/addLikedBook';
+import getLikedBooks from '../../controllers/bookStore/likedBooks/getLikedBooks';
+import deleteLikedBook from '../../controllers/bookStore/likedBooks/deleteLikedBook';
+import addLikedBook from '../../controllers/bookStore/likedBooks/addLikedBook';
 
 const likedBookRouter = express.Router();
 

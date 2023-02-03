@@ -42,6 +42,42 @@ type ResponseUpdateUserType = {
   user: User;
 };
 
+type BodySignInType = {
+  email: User['email'];
+  password: User['password'];
+};
+
+type ResponseSignInType = {
+  user: User;
+  token: string | object;
+};
+
+type BodySignUpType = {
+  fullName: User['fullName'];
+  dob: User['dob'];
+  email: User['email'];
+  password: User['password'];
+};
+
+type ResponseSignUpType = {
+  user: User;
+  token: string;
+};
+
+export type HandlerSignUpType = RequestHandler<
+ParamsType,
+ResponseSignUpType,
+BodySignUpType,
+QueryType
+>;
+
+export type HandlerSignInType = RequestHandler<
+ParamsType,
+ResponseSignInType,
+BodySignInType,
+QueryType
+>;
+
 export type HandlerUpdateUserType = RequestHandler<
 ParamsType,
 ResponseUpdateUserType,

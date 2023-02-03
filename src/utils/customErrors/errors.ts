@@ -16,9 +16,11 @@ const UNABLE_TO_DELETE_OLD_AVATAR = 'Unable to delete old avatar';
 const UNABLE_SAVE_NEW_AVATAR = 'Unable save new avatar';
 const BOOK_NOT_FOUND = 'Book not found';
 const UNABLE_FOUND_BOOK = 'Unable found book';
-const INSTANSE_NOT_FOUND = 'instance not found';
+const INSTANSE_NOT_FOUND = 'Instance not found';
+const GENRES_NOT_AVAILABLE = 'Genres not available';
 
 export default {
+  GENRES_NOT_AVAILABLE,
   INSTANSE_NOT_FOUND,
   UNABLE_FOUND_BOOK,
   BOOK_NOT_FOUND,

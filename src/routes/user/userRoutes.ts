@@ -1,12 +1,15 @@
 import express from 'express';
-import avatarUser from '../../controllers/updateUser/avatarUser';
+
+import auth from '../../middlewares/auth';
+
 import { deleteUserSchema, passwordSchema, updateUserSchema } from '../../utils/schemasYup/schemasUpdate';
 import { createValidationMiddleware } from '../../middlewares/createValidationMiddleware';
-import auth from '../../middlewares/auth';
-import getUsers from '../../controllers/updateUser/getUsers';
-import deleteUser from '../../controllers/updateUser/deleteUser';
-import updateUser from '../../controllers/updateUser/updateUser';
-import updatePassword from '../../controllers/updateUser/updatePassword';
+
+import avatarUser from '../../controllers/user/updateUser/avatarUser';
+import getUsers from '../../controllers/user/updateUser/getUsers';
+import deleteUser from '../../controllers/user/updateUser/deleteUser';
+import updateUser from '../../controllers/user/updateUser/updateUser';
+import updatePassword from '../../controllers/user/updateUser/updatePassword';
 
 const userRouter = express.Router();
 

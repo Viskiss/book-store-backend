@@ -1,7 +1,7 @@
 import express from 'express';
 
-import addRateBook from '../../controllers/bookRate/addRatingBook';
-import getRateBook from '../../controllers/bookRate/getRatingBooks';
+import addRateBook from '../../controllers/bookStore/bookRate/addRatingBook';
+import getRateBook from '../../controllers/bookStore/bookRate/getRatingBooks';
 
 import auth from '../../middlewares/auth';
 
