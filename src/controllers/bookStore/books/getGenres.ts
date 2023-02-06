@@ -6,6 +6,7 @@ import type { HandlerGetGenresType } from 'src/types';
 import CustomError from '../../../utils/customErrors/customErrors';
 
 import errorsMessages from '../../../utils/customErrors/errors';
+
 import db from '../../../db';
 
 const getGenres: HandlerGetGenresType = async (req, res, next) => {

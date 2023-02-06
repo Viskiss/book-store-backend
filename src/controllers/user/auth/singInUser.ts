@@ -8,7 +8,7 @@ import hashPassword from '../../../utils/hashPassword';
 import createToken from '../../../utils/jwtToken';
 import CustomError from '../../../utils/customErrors/customErrors';
 
-import db from '../../../db/index';
+import db from '../../../db';
 
 const signIn: HandlerSignInType = async (req, res, next) => {
   try {

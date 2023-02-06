@@ -9,7 +9,7 @@ import succsessMessages from '../../../utils/customErrors/success';
 import hashPassword from '../../../utils/hashPassword';
 import CustomError from '../../../utils/customErrors/customErrors';
 
-import db from '../../../db/index';
+import db from '../../../db';
 
 const updatePassword: HandlerUpdatePasswordType = async (req, res, next) => {
   try {

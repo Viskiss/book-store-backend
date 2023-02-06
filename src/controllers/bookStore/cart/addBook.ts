@@ -6,7 +6,7 @@ import CustomError from '../../../utils/customErrors/customErrors';
 import Cart from '../../../db/entities/bookStore/Cart';
 import errorsMessages from '../../../utils/customErrors/errors';
 
-import db from '../../../db/index';
+import db from '../../../db';
 
 const addBook: HandlerAddBookType = async (req, res, next) => {
   try {

@@ -4,7 +4,7 @@ import {
 
 import type { HandlerGetUsersType } from 'src/types';
 
-import db from '../../../db/index';
+import db from '../../../db';
 
 const getUser: HandlerGetUsersType = async (req, res, next) => {
   try {

@@ -4,7 +4,7 @@ import type { HandlerGetBooksCartType } from '../../../types';
 import CustomError from '../../../utils/customErrors/customErrors';
 import errorsMessages from '../../../utils/customErrors/errors';
 
-import db from '../../../db/index';
+import db from '../../../db';
 
 export const getBooksInCart: HandlerGetBooksCartType = async (
   req,

@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import type { HandlerGetBookRateType } from 'src/types';
 
-import db from '../../../db/index';
+import db from '../../../db';
 
 const getRateBook: HandlerGetBookRateType = async (req, res, next) => {
   try {

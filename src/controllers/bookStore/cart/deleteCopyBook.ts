@@ -4,7 +4,7 @@ import type { HandlerAddCopyBookType } from 'src/types';
 import CustomError from '../../../utils/customErrors/customErrors';
 import errorsMessages from '../../../utils/customErrors/errors';
 
-import db from '../../../db/index';
+import db from '../../../db';
 
 const deleteCopyBook: HandlerAddCopyBookType = async (req, res, next) => {
   try {

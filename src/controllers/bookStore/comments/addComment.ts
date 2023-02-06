@@ -2,7 +2,7 @@ import type { HandlerAddCommentType } from 'src/types';
 
 import UserComment from '../../../db/entities/bookStore/UserComment';
 
-import db from '../../../db/index';
+import db from '../../../db';
 
 const addComment: HandlerAddCommentType = async (req, res, next) => {
   try {

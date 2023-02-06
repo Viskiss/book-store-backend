@@ -4,7 +4,7 @@ import type { HandlerDeleteBookType } from 'src/types';
 import CustomError from '../../../utils/customErrors/customErrors';
 import errorsMessages from '../../../utils/customErrors/errors';
 
-import db from '../../../db/index';
+import db from '../../../db';
 
 const deleteBookInCart: HandlerDeleteBookType = async (req, res, next) => {
   try {

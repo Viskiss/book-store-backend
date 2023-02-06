@@ -1,6 +1,6 @@
 import type { HandlerGetCommentsType } from 'src/types';
 
-import db from '../../../db/index';
+import db from '../../../db';
 
 const getComments: HandlerGetCommentsType = async (req, res, next) => {
   try {

@@ -5,7 +5,7 @@ import CustomError from '../../../utils/customErrors/customErrors';
 import { findDubleEmail } from '../../../utils/findDuble';
 import errorsMessages from '../../../utils/customErrors/errors';
 
-import db from '../../../db/index';
+import db from '../../../db';
 
 const updateUser: HandlerUpdateUserType = async (req, res, next) => {
   try {

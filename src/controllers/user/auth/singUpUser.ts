@@ -8,7 +8,8 @@ import hashPassword from '../../../utils/hashPassword';
 import tokenJwt from '../../../utils/jwtToken';
 
 import User from '../../../db/entities/User';
-import db from '../../../db/index';
+
+import db from '../../../db';
 
 const singUp: HandlerSignUpType = async (req, res, next) => {
   try {

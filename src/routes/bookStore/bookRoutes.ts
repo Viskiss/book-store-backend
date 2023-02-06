@@ -9,7 +9,7 @@ import getRecommendedBooks from '../../controllers/bookStore/books/getRecBooks';
 const bookRouter = express.Router();
 
 bookRouter.get('/filter', filterBooks);
-bookRouter.get('/books', getBooks);
+bookRouter.get('/all', getBooks);
 bookRouter.get('/gernes', getGenres);
 bookRouter.get('/:bookId', getSelectBook);
 bookRouter.get('/recommend/:userId', getRecommendedBooks);
