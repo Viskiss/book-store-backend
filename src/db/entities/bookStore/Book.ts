@@ -29,8 +29,8 @@ export class Book {
   @Column({ type: 'varchar', nullable: false })
   text: string;
 
-  @Column({ type: 'varchar', nullable: true })
-  rate: string;
+  @Column({ type: 'numeric', nullable: true })
+  rate: number;
 
   @Column({ type: 'varchar', nullable: false })
   cover: string;

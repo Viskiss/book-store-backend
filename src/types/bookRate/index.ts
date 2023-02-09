@@ -19,6 +19,13 @@ type ParamsGetRateType = {
   userId: User['id'];
 };
 
+type ResponseRateType = {
+  id: number;
+  bookId: number;
+  userId: number;
+  rate: number;
+};
+
 export type HandlerGetBookRateType = RequestHandler<
 ParamsGetRateType,
 ResponseGetRateType,
@@ -28,7 +35,7 @@ QueryType
 
 export type HandlerAddBookRateType = RequestHandler<
 ParamsType,
-ResponseType,
+ResponseRateType,
 BodyAddBookType,
 QueryType
 >;
