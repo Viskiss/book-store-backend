@@ -14,7 +14,7 @@ type BodyAddCommentType = {
   text: string;
 };
 
-type ParamsGetCommentType = {
+export type ParamsGetCommentType = {
   bookId: Book['id'];
 };
 
