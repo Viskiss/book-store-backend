@@ -12,10 +12,12 @@ const cartRouter = express.Router();
 
 cartRouter.use(auth);
 
-cartRouter.post('/add', addBook);
 cartRouter.get('/:userId', getBooksInCart);
-cartRouter.delete('/delete/:cartId', deleteBookInCart);
 cartRouter.get('/copy/:bookId', addCopyBook);
+
+cartRouter.post('/add', addBook);
+
+cartRouter.delete('/delete/:cartId', deleteBookInCart);
 cartRouter.delete('/delete-copy/:bookId', deleteCopyBook);
 
 export default cartRouter;

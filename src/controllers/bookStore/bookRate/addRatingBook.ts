@@ -14,7 +14,6 @@ const changeBookRate = async (bookId: number) => {
     .where('rate.bookId = :bookId', { bookId })
     .getMany();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let mathRate = 0;
 
   bookRate.forEach((book) => {
@@ -57,8 +56,8 @@ const addRateBook: HandlerAddBookRateType = async (req, res, next) => {
       await db.book.save(book);
       return res.json(rateSelectBook);
     }
-    const ratingBook = new BookRate();
 
+    const ratingBook = new BookRate();
     ratingBook.bookId = bookId;
     ratingBook.userId = userId;
     ratingBook.rate = rate;

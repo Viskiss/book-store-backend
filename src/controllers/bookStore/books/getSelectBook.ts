@@ -1,6 +1,4 @@
-import {
-  StatusCodes,
-} from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 
 import type { HandlerShowBookType } from '../../../types/books';
 import CustomError from '../../../utils/customErrors/customErrors';

@@ -20,7 +20,7 @@ class BookRate {
   @Column({ type: 'varchar', nullable: false })
   userId: number;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({ type: 'numeric', nullable: false })
   rate: number;
 
   @ManyToOne(() => User, (user) => user.id)

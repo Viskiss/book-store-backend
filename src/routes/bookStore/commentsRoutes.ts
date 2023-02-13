@@ -7,7 +7,8 @@ import addComment from '../../controllers/bookStore/comments/addComment';
 
 const commentsRouter = express.Router();
 
-commentsRouter.post('/add', auth, addComment);
 commentsRouter.get('/comments/:bookId', getComments);
+
+commentsRouter.post('/add', auth, addComment);
 
 export default commentsRouter;
