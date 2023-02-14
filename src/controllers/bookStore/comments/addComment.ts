@@ -1,13 +1,14 @@
-import type { HandlerAddCommentType } from 'src/types';
+import type { Socket } from 'socket.io';
+import type { DefaultEventsMap } from 'node_modules/socket.io/dist/typed-events';
 
-import type { ParamsGetCommentType } from 'src/types/comments/index';
+import type { BodyAddCommentType } from 'src/types/comments/index';
 import UserComment from '../../../db/entities/bookStore/UserComment';
 
 import db from '../../../db';
 
-const addComment: HandlerAddCommentType = async (req, res, next) => {
+const addCommentsSocket = async (data: BodyAddCommentType) => {
   try {
-    const { text, bookId, userId } = req.body;
+    const { text, bookId, userId } = data;
 
     const comment = new UserComment();
     comment.bookId = bookId;
@@ -16,33 +17,26 @@ const addComment: HandlerAddCommentType = async (req, res, next) => {
 
     await db.comment.save(comment);
 
-    const resUserComment = await db.comment
+    const commentId = comment.id;
+
+    const userComment = await db.comment
       .createQueryBuilder('comment')
-      .where('comment.bookId = :bookId', { bookId })
+      .where('comment.id = :id', { id: commentId })
       .leftJoinAndSelect('comment.user', 'user')
-      .getMany();
+      .getOne();
 
-    return res.json(resUserComment);
-  } catch (err) {
-    next(err);
-  }
-};
-
-const getCommentsWithSocket = async (data: ParamsGetCommentType) => {
-  try {
-    const { bookId } = data;
-
-    const userComments = await db.comment
-      .createQueryBuilder('comment')
-      .where('comment.bookId = :bookId', { bookId })
-      .leftJoinAndSelect('comment.user', 'user')
-      .getMany();
-
-    return userComments;
+    return userComment;
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
   }
 };
 
-export default { addComment, getCommentsWithSocket };
+const socketAddComment = (socket: Socket<DefaultEventsMap>) => {
+  socket.on('addComment', async (data) => {
+    const comment = await addCommentsSocket(data);
+    socket.nsp.emit('getComment', comment);
+  });
+};
+
+export default { socketAddComment };

@@ -9,6 +9,6 @@ const commentsRouter = express.Router();
 
 commentsRouter.get('/comments/:bookId', getComments);
 
-commentsRouter.post('/add', auth, comment.addComment);
+commentsRouter.post('/add', auth, comment.socketAddComment);
 
 export default commentsRouter;

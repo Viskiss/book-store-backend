@@ -10,7 +10,7 @@ const bookRouter = express.Router();
 
 bookRouter.get('/filter', filterBooks);
 bookRouter.get('/all', getBooks);
-bookRouter.get('/gernes', getGenres);
+bookRouter.get('/genres', getGenres);
 bookRouter.get('/:bookId', getSelectBook);
 bookRouter.get('/recommend/:userId', getRecommendedBooks);
 

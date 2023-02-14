@@ -8,7 +8,7 @@ import type { BodyType, ParamsType, QueryType } from '../emptyType';
 
 type ResponseType = UserComment[];
 
-type BodyAddCommentType = {
+export type BodyAddCommentType = {
   userId: User['id'];
   bookId: Book['id'];
   text: string;
