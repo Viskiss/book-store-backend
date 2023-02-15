@@ -26,4 +26,4 @@ export {
   HandlerAddLikedBookType,
   HandlerDeleteLikedBookType,
   HandlerGetLikedBooksType,
-} from './likedBooks';
+} from './favoriteBooks/index';

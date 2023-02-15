@@ -54,6 +54,7 @@ const addRateBook: HandlerAddBookRateType = async (req, res, next) => {
       book.rate = result;
 
       await db.book.save(book);
+
       return res.json(rateSelectBook);
     }
 

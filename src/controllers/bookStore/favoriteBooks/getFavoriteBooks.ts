@@ -1,12 +1,12 @@
 import { StatusCodes } from 'http-status-codes';
 
-import type { HandlerGetLikedBooksType } from '../../../types/likedBooks';
+import type { HandlerGetLikedBooksType } from '../../../types/favoriteBooks/index';
 import CustomError from '../../../utils/customErrors/customErrors';
 import errorsMessages from '../../../utils/customErrors/errors';
 
 import db from '../../../db';
 
-export const getLikedBooks: HandlerGetLikedBooksType = async (
+export const getFavoriteBooks: HandlerGetLikedBooksType = async (
   req,
   res,
   next,
@@ -33,4 +33,4 @@ export const getLikedBooks: HandlerGetLikedBooksType = async (
   }
 };
 
-export default getLikedBooks;
+export default getFavoriteBooks;

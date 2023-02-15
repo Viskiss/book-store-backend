@@ -1,17 +1,17 @@
-import type { HandlerDeleteLikedBookType } from 'src/types';
+import type { HandlerAddLikedBookType } from 'src/types';
+import LikedBook from '../../../db/entities/bookStore/LikedBook';
 
 import db from '../../../db';
 
-const deleteLikedBook: HandlerDeleteLikedBookType = async (req, res, next) => {
+const addFavoriteBook: HandlerAddLikedBookType = async (req, res, next) => {
   try {
     const { bookId } = req.params;
 
-    const unLiked = await db.likedBook
-      .createQueryBuilder('likedBook')
-      .where('likedBook.bookId = :bookId', { bookId })
-      .getOne();
+    const likedBook = new LikedBook();
+    likedBook.bookId = bookId;
+    likedBook.userId = req.user.id;
 
-    await db.likedBook.remove(unLiked);
+    await db.likedBook.save(likedBook);
 
     const likedBooks = await db.likedBook
       .createQueryBuilder('likedBooks')
@@ -25,4 +25,4 @@ const deleteLikedBook: HandlerDeleteLikedBookType = async (req, res, next) => {
   }
 };
 
-export default deleteLikedBook;
+export default addFavoriteBook;
