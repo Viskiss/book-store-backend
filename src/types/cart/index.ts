@@ -15,7 +15,8 @@ type ResponseAddBookType = {
   books: Cart[];
 };
 
-type ParamsAddCopyType = {
+type ParamsChangeCopyType = {
+  mark: number;
   bookId: Book['id'];
 };
 
@@ -53,8 +54,8 @@ BodyType,
 QueryType
 >;
 
-export type HandlerAddCopyBookType = RequestHandler<
-ParamsAddCopyType,
+export type HandlerChangeCopyBookType = RequestHandler<
+ParamsChangeCopyType,
 ResponseAddCopyType,
 BodyType,
 QueryType

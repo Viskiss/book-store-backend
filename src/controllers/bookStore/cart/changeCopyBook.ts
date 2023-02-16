@@ -1,14 +1,16 @@
 import { StatusCodes } from 'http-status-codes';
 
-import type { HandlerAddCopyBookType } from 'src/types';
+import type { HandlerChangeCopyBookType } from 'src/types/cart/index';
+
 import CustomError from '../../../utils/customErrors/customErrors';
 import errorsMessages from '../../../utils/customErrors/errors';
 
 import db from '../../../db';
 
-const addCopyBook: HandlerAddCopyBookType = async (req, res, next) => {
+const changeCopyBook: HandlerChangeCopyBookType = async (req, res, next) => {
   try {
     const bookId = req.params.bookId;
+    const mark = req.params.mark;
     const userId = req.user.id;
 
     if (!bookId) {
@@ -24,9 +26,18 @@ const addCopyBook: HandlerAddCopyBookType = async (req, res, next) => {
       .getOne();
 
     const num = cart.quantityOfGoods;
-    cart.quantityOfGoods = +num + 1;
 
-    await db.cart.save(cart);
+    if (+mark === 1) {
+      cart.quantityOfGoods = +num + 1;
+    } else {
+      cart.quantityOfGoods = +num - 1;
+    }
+
+    if (cart.quantityOfGoods === 0) {
+      await db.cart.remove(cart);
+    } else {
+      await db.cart.save(cart);
+    }
 
     const userCart = await db.cart
       .createQueryBuilder('cart')
@@ -40,4 +51,4 @@ const addCopyBook: HandlerAddCopyBookType = async (req, res, next) => {
   }
 };
 
-export default addCopyBook;
+export default changeCopyBook;
