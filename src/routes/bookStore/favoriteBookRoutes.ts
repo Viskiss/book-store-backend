@@ -10,7 +10,7 @@ const likedBookRouter = express.Router();
 
 likedBookRouter.use(auth);
 
-likedBookRouter.get('/books', getLikedBooks);
+likedBookRouter.get('/favorite-books', getLikedBooks);
 
 likedBookRouter.post('/add/:bookId', addLikedBook);
 
