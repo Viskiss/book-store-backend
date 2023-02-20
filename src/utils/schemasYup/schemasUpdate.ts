@@ -21,7 +21,6 @@ export const passwordSchema = {
     password: yupValidData.password,
     newPassword: yupValidData.newPassword,
   },
-  params: { userId: sharedValidation.requiredParamsId },
 };
 
 export const deleteUserSchema = {

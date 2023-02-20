@@ -22,6 +22,6 @@ userRouter.delete('/:userId', createValidationMiddleware(deleteUserSchema), dele
 userRouter.post('/upload', avatarUser);
 
 userRouter.patch('/:userId', createValidationMiddleware(updateUserSchema), updateUser);
-userRouter.patch('/:userId/password', createValidationMiddleware(passwordSchema), updatePassword);
+userRouter.patch('/password', createValidationMiddleware(passwordSchema), updatePassword);
 
 export default userRouter;
